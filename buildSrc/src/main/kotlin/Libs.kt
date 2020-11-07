@@ -1,0 +1,15 @@
+object Libs {
+    const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-beta01"
+    const val ADAPTER_DELEGATES = "com.hannesdorfmann:adapterdelegates4:4.3.0"
+    const val ADAPTER_DELEGATES_VIEW_BINDING = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0"
+    const val APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
+    const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.2"
+    const val CORE_KTX = "androidx.core:core-ktx:1.3.2"
+    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.0-M1"
+    const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"
+    const val GSON = "com.google.code.gson:gson:2.8.6"
+    const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
+    const val LIFECYCLE_LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-beta01"
+    const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-beta01"
+    const val MATERIAL = "com.google.android.material:material:1.3.0-alpha03"
+}

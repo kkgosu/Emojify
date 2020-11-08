@@ -35,7 +35,7 @@ subprojects {
 }
 
 releasesHub {
-    dependenciesBasePath = "buildSrc/src/main/java/"
+    dependenciesBasePath = "buildSrc/src/main/kotlin/"
     dependenciesClassNames = listOf("Libs.kt", "BuildLibs.kt")
     excludes = listOf("gradle")
 
@@ -46,7 +46,6 @@ releasesHub {
 
     val properties = Properties()
     properties.load(project.rootProject.file("local.properties").inputStream())
-    val token = properties.getProperty("git_token")
 
-    gitHubWriteToken = token
+    gitHubWriteToken = properties.getProperty("git_token")
 }

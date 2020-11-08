@@ -3,7 +3,7 @@ object Libs {
     const val ADAPTER_DELEGATES = "com.hannesdorfmann:adapterdelegates4:4.3.0"
     const val ADAPTER_DELEGATES_VIEW_BINDING = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0"
     const val APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
-    const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.2"
+    const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val CORE_KTX = "androidx.core:core-ktx:1.3.2"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1"
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"

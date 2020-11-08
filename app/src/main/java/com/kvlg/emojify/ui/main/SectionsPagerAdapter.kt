@@ -30,8 +30,5 @@ class SectionsPagerAdapter(
         return context.resources.getString(TAB_TITLES[position])
     }
 
-    override fun getCount(): Int {
-        // Show 2 total pages.
-        return 2
-    }
+    override fun getCount(): Int = 2
 }

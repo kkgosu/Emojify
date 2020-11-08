@@ -3,8 +3,6 @@ package com.kvlg.emojify
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.kvlg.emojify.model.EmojiItem
@@ -23,12 +21,6 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
 
         val gson = Gson()
 
@@ -38,11 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         val mapOfEmojis = mutableMapOf<String, EmojiItem>()
         emojiKeys.keys.forEach {
-            val emojiValue = jsonObject[it]
-            val result = gson.fromJson(emojiValue.toString(), EmojiItem::class.java)
-            mapOfEmojis[it] = result
+            mapOfEmojis[it] = gson.fromJson(jsonObject[it].toString(), EmojiItem::class.java)
         }
-
-        println(mapOfEmojis.values.size)
     }
 }

@@ -29,9 +29,8 @@ class PlaceholderFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_main, container, false)
-        val textView: TextView = root.findViewById(R.id.section_label)
-        pageViewModel.text.observe(this) {
-            textView.text = it
+        pageViewModel.text.observe(viewLifecycleOwner) {
+            println(it)
         }
         return root
     }

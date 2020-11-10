@@ -26,9 +26,9 @@ class SectionsPagerAdapter(
         return PlaceholderFragment.newInstance(position + 1)
     }
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return context.resources.getString(TAB_TITLES[position])
-    }
-
     override fun getCount(): Int = 2
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return context.getString(TAB_TITLES[position])
+    }
 }

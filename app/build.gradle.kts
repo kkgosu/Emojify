@@ -10,6 +10,7 @@ android {
         applicationId = "com.kvlg.emojify"
         minSdkVersion(BuildLibs.MIN_SDK)
         targetSdkVersion(BuildLibs.TARGET_SDK)
+        compileSdkVersion(BuildLibs.COMPILE_SDK)
         versionCode = BuildLibs.versionCodeMobile
         versionName = BuildLibs.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

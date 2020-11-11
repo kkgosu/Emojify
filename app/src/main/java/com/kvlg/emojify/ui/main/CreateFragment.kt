@@ -7,11 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.kvlg.emojify.databinding.FragmentCreateBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * @author Konstantin Koval
  * @since 11.11.2020
  */
+@AndroidEntryPoint
 class CreateFragment : Fragment() {
 
     private var _binding: FragmentCreateBinding? = null
@@ -34,6 +36,14 @@ class CreateFragment : Fragment() {
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    companion object {
+        fun newInstance() = CreateFragment().apply {
+            arguments = Bundle().apply {
+
+            }
+        }
     }
 
 }

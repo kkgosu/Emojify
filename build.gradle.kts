@@ -13,6 +13,7 @@ buildscript {
     dependencies {
         classpath(BuildLibs.GRADLE_PLUGIN)
         classpath(BuildLibs.KOTLIN_PLUGIN)
+        classpath(BuildLibs.HILT_PLUGIN)
     }
 }
 

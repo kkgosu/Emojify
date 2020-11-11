@@ -4,18 +4,23 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.kvlg.emojify.databinding.ActivityMainBinding
 import com.kvlg.emojify.model.EmojiItem
 import com.kvlg.emojify.model.Emojis
 import com.kvlg.emojify.ui.main.SectionsPagerAdapter
+import com.kvlg.emojify.ui.main.SharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val sharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

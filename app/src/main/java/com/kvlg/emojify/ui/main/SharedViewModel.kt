@@ -1,5 +1,6 @@
 package com.kvlg.emojify.ui.main
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +18,7 @@ import org.json.JSONObject
  * @author Konstantin Koval
  * @since 11.11.2020
  */
-class SharedViewModel(
+class SharedViewModel @ViewModelInject constructor(
     resourceManager: ResourceManager
 ) : ViewModel() {
 

@@ -41,15 +41,6 @@ class MainActivity : AppCompatActivity() {
             tabs.getTabAt(1)?.setIcon(R.drawable.ic_round_history_24)
         }
 
-        val gson = Gson()
 
-        val textJson = assets.open("emojis.json").bufferedReader().use { it.readText() }
-        val jsonObject = JSONObject(textJson)
-        val emojiKeys = gson.fromJson(textJson, Emojis::class.java)
-
-        val mapOfEmojis = mutableMapOf<String, EmojiItem>()
-        emojiKeys.keys.forEach {
-            mapOfEmojis[it] = gson.fromJson(jsonObject[it].toString(), EmojiItem::class.java)
-        }
     }
 }

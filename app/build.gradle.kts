@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
 }
 
 android {
@@ -39,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+
     implementation(Libs.ACTIVITY_KTX)
     implementation(Libs.ADAPTER_DELEGATES)
     implementation(Libs.ADAPTER_DELEGATES_VIEW_BINDING)
@@ -48,8 +51,13 @@ dependencies {
     implementation(Libs.COROUTINES)
     implementation(Libs.FRAGMENT_KTX)
     implementation(Libs.GSON)
+    implementation(Libs.HILT_ANDROID)
+    implementation(Libs.HILT_VIEWMODEL)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.MATERIAL)
+
+    kapt(Libs.HILT_COMPILER)
+    kapt(Libs.ANDROIDX_HILT_COMPILER)
 }

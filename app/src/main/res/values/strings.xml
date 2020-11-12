@@ -4,4 +4,6 @@
     <string name="tab_text_2">History</string>
     <string name="enter_text_here">Enter text here</string>
     <string name="create_emoji">Create Emoji</string>
+    <string name="copy">Copy</string>
+    <string name="copy_text">Emojifyed text copied!</string>
 </resources>

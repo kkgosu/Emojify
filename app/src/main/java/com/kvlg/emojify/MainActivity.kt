@@ -45,7 +45,5 @@ class MainActivity : AppCompatActivity() {
             tabs.getTabAt(0)?.setIcon(R.drawable.ic_round_create_24)
             tabs.getTabAt(1)?.setIcon(R.drawable.ic_round_history_24)
         }
-
-
     }
 }

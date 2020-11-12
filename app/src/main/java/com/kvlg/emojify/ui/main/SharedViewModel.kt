@@ -1,5 +1,6 @@
 package com.kvlg.emojify.ui.main
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -39,10 +40,10 @@ class SharedViewModel @ViewModelInject constructor(
     val emojiText: LiveData<String> = _emojiText
 
     fun emojifyText(input: String) {
-        val result = viewModelScope.launch {
-            println("Start modifying")
+        viewModelScope.launch {
+            Log.d(TAG, "emojifyText: Start modifying")
             _emojiText.value = modifyText(input)
-            println("Stop modifying")
+            Log.d(TAG, "emojifyText: Stop modifying")
         }
     }
 
@@ -50,11 +51,30 @@ class SharedViewModel @ViewModelInject constructor(
         return withContext(Dispatchers.IO) {
             buildString {
                 input.split(" ").forEach { word ->
-                    val result = emojiMap.values.find { em -> em.keywords.contains(word) }
-                    if (result != null) append("$word ${result.char}")
-                    else append(word)
+                    appendResult(word)
                 }
             }
         }
+    }
+
+    private fun StringBuilder.appendResult(word: String): StringBuilder? {
+        val result = emojiMap.values.find { em -> em.keywords.contains(word) }
+        return when {
+            result != null -> {
+                append("$word ${result.char} ")
+            }
+            word.isPossiblePlural() -> {
+                appendResult(word.dropLast(1))
+            }
+            else -> {
+                append("$word ")
+            }
+        }
+    }
+
+    private fun String.isPossiblePlural() = if (isNotEmpty()) last() == 's' else false
+
+    companion object {
+        private val TAG = "SharedViewModel"
     }
 }

@@ -14,3 +14,10 @@ data class EmojiItem(
     val char: String,
     val category: String
 )
+
+data class EmojiItem2(
+    val emoji: String,
+    val description: String,
+    val aliases: List<String>,
+    val tags: List<String>
+)

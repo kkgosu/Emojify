@@ -59,7 +59,11 @@ dependencies {
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.MATERIAL)
+    implementation(Libs.ROOM_KTX)
+    implementation(Libs.ROOM_RUNTIME)
+    implementation(Libs.ROOM_COMMON)
 
-    kapt(Libs.HILT_COMPILER)
     kapt(Libs.ANDROIDX_HILT_COMPILER)
+    kapt(Libs.HILT_COMPILER)
+    kapt(Libs.ROOM_COMPILER)
 }

@@ -50,6 +50,9 @@ class CreateFragment : Fragment() {
             clipboardManager.setPrimaryClip(clip)
             toast(getString(R.string.copy_text))
         }
+        binding.clearButton.setOnClickListener {
+            binding.inputText.text?.clear()
+        }
         viewModel.emojiText.observe(viewLifecycleOwner, binding.inputText::setText)
     }
 

@@ -20,9 +20,10 @@ class SectionsPagerAdapter(
     fm: FragmentManager
 ) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getItem(position: Int): Fragment = when(position) {
+    override fun getItem(position: Int): Fragment = when (position) {
         0 -> CreateFragment.newInstance()
-        else -> PlaceholderFragment.newInstance(position + 1)
+        1 -> HistoryFragment.newInstance()
+        else -> throw IllegalStateException("There is no fragment with ID $position")
     }
 
     override fun getCount(): Int = 2

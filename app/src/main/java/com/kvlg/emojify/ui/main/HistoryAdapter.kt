@@ -1,5 +1,6 @@
 package com.kvlg.emojify.ui.main
 
+import android.util.Log
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import com.kvlg.emojify.databinding.HistoryItemBinding
@@ -13,6 +14,7 @@ import com.kvlg.emojify.model.EmojifyedText
 class HistoryAdapter(
     private val clickListener: HistoryTextInteraction
 ) : AsyncListDifferDelegationAdapter<EmojifyedText>(HistoryDiffCallback()) {
+
     init {
         delegatesManager
             .addDelegate(emojifyedTextAdapterDelegate { emojifyedText ->
@@ -33,6 +35,7 @@ fun emojifyedTextAdapterDelegate(clickListener: (EmojifyedText) -> Unit) =
             clickListener(item)
         }
         bind {
+            Log.d("DELEGATE", "emojifyedTextAdapterDelegate: ${it.joinToString()}")
             binding.apply {
                 text.text = item.text
             }

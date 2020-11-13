@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
  */
 @Database(
     entities = [EmojifyedTextEntity::class],
-    version = 0,
+    version = 1,
     exportSchema = false
 )
 abstract class HistoryTextDatabase : RoomDatabase() {

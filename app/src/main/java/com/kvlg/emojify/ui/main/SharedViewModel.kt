@@ -7,23 +7,29 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.kvlg.emojify.domain.EmojiInteractor
 import com.kvlg.emojify.domain.ResourceManager
+import com.kvlg.emojify.domain.Result
 import com.kvlg.emojify.model.EmojiItem
+import com.kvlg.emojify.model.EmojifyedText
 import com.kvlg.emojify.model.Emojis
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import kotlin.collections.set
 
 /**
  * @author Konstantin Koval
  * @since 11.11.2020
  */
 class SharedViewModel @ViewModelInject constructor(
-    resourceManager: ResourceManager
+    resourceManager: ResourceManager,
+    private val interactor: EmojiInteractor
 ) : ViewModel() {
 
     private val emojiMap = mutableMapOf<String, EmojiItem>()
+    private val _emojiText = MutableLiveData<String>()
 
     init {
         val gson = Gson()
@@ -36,15 +42,22 @@ class SharedViewModel @ViewModelInject constructor(
         }
     }
 
-    private val _emojiText = MutableLiveData<String>()
+    val history: LiveData<Result<List<EmojifyedText>>> = interactor.getAllTexts()
+
     val emojiText: LiveData<String> = _emojiText
 
     fun emojifyText(input: String) {
         viewModelScope.launch {
             Log.d(TAG, "emojifyText: Start modifying")
-            _emojiText.value = modifyText(input)
+            val result = modifyText(input)
+            _emojiText.value = result
             Log.d(TAG, "emojifyText: Stop modifying")
+            saveText(result)
         }
+    }
+
+    private suspend fun saveText(text: String) {
+        interactor.saveText(text)
     }
 
     private suspend fun modifyText(input: String): String {

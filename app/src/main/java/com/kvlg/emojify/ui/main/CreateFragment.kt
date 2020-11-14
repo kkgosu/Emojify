@@ -1,5 +1,6 @@
 package com.kvlg.emojify.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,6 +40,12 @@ class CreateFragment : Fragment() {
         }
         binding.clearButton.setOnClickListener {
             binding.inputText.text?.clear()
+        }
+        binding.shareButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_TEXT, binding.inputText.text())
+            startActivity(Intent.createChooser(intent, "Share via"))
         }
         viewModel.emojiText.observe(viewLifecycleOwner, binding.inputText::setText)
     }

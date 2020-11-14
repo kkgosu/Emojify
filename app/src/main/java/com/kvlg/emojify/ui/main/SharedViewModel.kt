@@ -88,7 +88,7 @@ class SharedViewModel @ViewModelInject constructor(
             result2 != null -> {
                 append("$word ${result2.emoji}")
             }
-            word.isPossiblePlural() -> {
+            word.isPossiblePlural() || word.isLastNotLetter() -> {
                 appendResult(word.dropLast(1))
             }
             else -> {
@@ -98,6 +98,8 @@ class SharedViewModel @ViewModelInject constructor(
     }
 
     private fun String.isPossiblePlural() = if (isNotEmpty()) last() == 's' else false
+
+    private fun String.isLastNotLetter() = if (isNotEmpty()) last().isLetter() else false
 
     companion object {
         private val TAG = "SharedViewModel"

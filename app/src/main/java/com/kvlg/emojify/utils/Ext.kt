@@ -2,11 +2,13 @@ package com.kvlg.emojify.utils
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.kvlg.emojify.R
 
 /**
@@ -33,6 +35,16 @@ fun Fragment.copyToClipboard(text: String?) {
     val clip = ClipData.newPlainText(CLIP_LABEL, text)
     clipboardManager.setPrimaryClip(clip)
     toast(getString(R.string.copy_text))
+}
+
+fun LottieAnimationView.hideAnimation() {
+    visibility = View.GONE
+    cancelAnimation()
+}
+
+fun LottieAnimationView.showAnimation() {
+    visibility = View.VISIBLE
+    playAnimation()
 }
 
 private const val CLIP_LABEL = "CLIP_LABEL"

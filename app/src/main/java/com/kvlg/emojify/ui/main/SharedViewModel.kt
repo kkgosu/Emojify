@@ -1,6 +1,5 @@
 package com.kvlg.emojify.ui.main
 
-import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -33,6 +32,8 @@ class SharedViewModel @ViewModelInject constructor(
     private val emojiMap = mutableMapOf<String, EmojiItem>()
     private var emojiList2 = emptyList<EmojiItem2>()
     private val _emojiText = MutableLiveData<String>()
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
 
     init {
         val gson = Gson()
@@ -53,10 +54,10 @@ class SharedViewModel @ViewModelInject constructor(
 
     fun emojifyText(input: String) {
         viewModelScope.launch {
-            Log.d(TAG, "emojifyText: Start modifying")
+            _loading.value = true
             val result = modifyText(input)
             _emojiText.value = result
-            Log.d(TAG, "emojifyText: Stop modifying")
+            _loading.value = false
             saveText(result)
         }
     }

@@ -15,6 +15,7 @@ object Libs {
     const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10"
     const val LIFECYCLE_LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-beta01"
     const val LIFECYCLE_VIEW_MODEL_KTX = "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-beta01"
+    const val LOTTIE = "com.airbnb.android:lottie:3.4.4"
     const val MATERIAL = "com.google.android.material:material:1.3.0-alpha03"
     const val ROOM_COMPILER = "androidx.room:room-compiler:2.2.5"
     const val ROOM_COMMON = "androidx.room:room-common:2.2.5"

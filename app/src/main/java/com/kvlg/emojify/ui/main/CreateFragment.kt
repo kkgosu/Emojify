@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.kvlg.emojify.databinding.FragmentCreateBinding
-import com.kvlg.emojify.utils.copyToClipboard
-import com.kvlg.emojify.utils.hideKeyboard
-import com.kvlg.emojify.utils.text
+import com.kvlg.emojify.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -48,6 +46,15 @@ class CreateFragment : Fragment() {
             startActivity(Intent.createChooser(intent, "Share via"))
         }
         viewModel.emojiText.observe(viewLifecycleOwner, binding.inputText::setText)
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.loadingAnimation.showAnimation()
+                binding.createButton.isEnabled = false
+            } else {
+                binding.loadingAnimation.hideAnimation()
+                binding.createButton.isEnabled = true
+            }
+        }
     }
 
     override fun onDestroy() {

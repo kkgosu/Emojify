@@ -12,6 +12,7 @@ import com.kvlg.emojify.model.EmojiItem
 import com.kvlg.emojify.model.Emojis
 import com.kvlg.emojify.ui.main.SectionsPagerAdapter
 import com.kvlg.emojify.ui.main.SharedViewModel
+import com.kvlg.fluidlayout.FluidContentResizer
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 
@@ -20,12 +21,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    private val sharedViewModel: SharedViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        FluidContentResizer.listen(this)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(

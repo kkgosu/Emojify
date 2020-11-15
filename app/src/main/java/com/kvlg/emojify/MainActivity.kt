@@ -6,20 +6,19 @@ import android.view.View
 import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.Gson
+import com.google.android.material.tabs.TabLayout
 import com.kvlg.emojify.databinding.ActivityMainBinding
-import com.kvlg.emojify.model.EmojiItem
-import com.kvlg.emojify.model.Emojis
 import com.kvlg.emojify.ui.main.SectionsPagerAdapter
 import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.fluidlayout.FluidContentResizer
 import dagger.hilt.android.AndroidEntryPoint
-import org.json.JSONObject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val sharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +44,14 @@ class MainActivity : AppCompatActivity() {
             viewPager.adapter = sectionsPagerAdapter
             tabs.getTabAt(0)?.setIcon(R.drawable.ic_round_create_24)
             tabs.getTabAt(1)?.setIcon(R.drawable.ic_round_history_24)
+            tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {}
+                override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    sharedViewModel.setScrollToTop(true)
+                }
+            })
         }
     }
 }

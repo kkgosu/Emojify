@@ -33,7 +33,7 @@ class SharedViewModel @ViewModelInject constructor(
     private var emojiList2 = emptyList<EmojiItem2>()
     private val _emojiText = MutableLiveData<String>()
     private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> = _loading
+    private val _scrollToTop = MutableLiveData<Boolean>()
 
     init {
         val gson = Gson()
@@ -49,8 +49,9 @@ class SharedViewModel @ViewModelInject constructor(
     }
 
     val history: LiveData<Result<List<EmojifyedText>>> = interactor.getAllTexts()
-
     val emojiText: LiveData<String> = _emojiText
+    val loading: LiveData<Boolean> = _loading
+    val scrollToTop: LiveData<Boolean> = _scrollToTop
 
     fun emojifyText(input: String) {
         viewModelScope.launch {
@@ -60,6 +61,10 @@ class SharedViewModel @ViewModelInject constructor(
             _loading.value = false
             saveText(result)
         }
+    }
+
+    fun setScrollToTop(value: Boolean) {
+        _scrollToTop.value = value
     }
 
     private suspend fun saveText(text: String) {

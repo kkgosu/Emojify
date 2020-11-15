@@ -35,11 +35,16 @@ class HistoryFragment : Fragment(), HistoryAdapter.HistoryTextInteraction {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         adapter = HistoryAdapter(this)
         binding.recyclerView.adapter = adapter
+        viewModel.scrollToTop.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.recyclerView.smoothScrollToPosition(0)
+            }
+        }
         viewModel.history.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Success -> {
                     adapter.items = result.data
-                    binding.recyclerView.smoothScrollToPosition(0)
+                    viewModel.setScrollToTop(true)
                 }
                 else -> toast("Error on getting history :c")
             }

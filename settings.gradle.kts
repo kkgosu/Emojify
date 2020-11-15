@@ -2,4 +2,4 @@ include(
     ":app",
     ":FluidLayout"
 )
-rootProject.name = "Emojify"
+rootProject.name = "Emojifyer"

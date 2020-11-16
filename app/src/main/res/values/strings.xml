@@ -9,4 +9,6 @@
     <string name="clear">Clear</string>
     <string name="share">Share</string>
     <string name="emojify">Emojify</string>
+    <string name="there_is_no_content_yet">There is no content yet</string>
+    <string name="all_the_emojifyed_texts_will_be_saved_there">All the emojifyed texts will be saved there!</string>
 </resources>

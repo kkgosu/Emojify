@@ -10,6 +10,8 @@ import com.kvlg.emojify.databinding.FragmentHistoryBinding
 import com.kvlg.emojify.domain.Result
 import com.kvlg.emojify.model.EmojifyedText
 import com.kvlg.emojify.utils.copyToClipboard
+import com.kvlg.emojify.utils.hideAnimation
+import com.kvlg.emojify.utils.showAnimation
 import com.kvlg.emojify.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -44,6 +46,7 @@ class HistoryFragment : Fragment(), HistoryAdapter.HistoryTextInteraction {
             when (result) {
                 is Result.Success -> {
                     adapter.items = result.data
+                    hideOrShowEmptyState(result.data.isEmpty())
                     viewModel.setScrollToTop(true)
                 }
                 else -> toast("Error on getting history :c")
@@ -58,6 +61,18 @@ class HistoryFragment : Fragment(), HistoryAdapter.HistoryTextInteraction {
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    private fun hideOrShowEmptyState(show: Boolean) {
+        if (show) {
+            binding.emptyListAnimation.showAnimation()
+            binding.emptyTitle.visibility = View.VISIBLE
+            binding.emptySubtitle.visibility = View.VISIBLE
+        } else {
+            binding.emptyListAnimation.hideAnimation()
+            binding.emptyTitle.visibility = View.GONE
+            binding.emptySubtitle.visibility = View.GONE
+        }
     }
 
     companion object {

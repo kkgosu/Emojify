@@ -81,7 +81,7 @@ class SharedViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun StringBuilder.appendResult(word: String): StringBuilder? {
+    private fun StringBuilder.appendResult(word: String, specialSymbol: Char? = null): StringBuilder? {
         val filteredWord = word.toLowerCase(Locale.getDefault()).replace("[^a-zA-Z]".toRegex(), "")
         val result = emojiMap.values.find { em -> em.keywords.contains(filteredWord) }
         var result2: EmojiItem2? = null
@@ -89,24 +89,29 @@ class SharedViewModel @ViewModelInject constructor(
             result2 = emojiList2.find { it.aliases.contains(filteredWord) || it.description == filteredWord || it.tags.contains(filteredWord) }
         }
         return when {
+            word.isLastSpecialSymbol() -> {
+                appendResult(word.dropLast(1), word.last())
+            }
             result != null -> {
-                append("$word ${result.char} ")
+                append("$word ${result.char}${specialSymbol ?: ""} ")
             }
             result2 != null -> {
-                append("$word ${result2.emoji}")
+                append("$word ${result2.emoji}${specialSymbol ?: ""} ")
             }
             word.isPossiblePlural() -> {
-                appendResult(word.dropLast(1))
+                appendResult(word.dropLast(1), word.last())
             }
             else -> {
-                append("$word ")
+                append("$word${specialSymbol ?: ""} ")
             }
         }
     }
 
     private fun String.isPossiblePlural() = if (isNotEmpty()) last() == 's' else false
 
+    private fun String.isLastSpecialSymbol() = if (isNotEmpty()) !last().isLetter() else false
+
     companion object {
-        private val TAG = "SharedViewModel"
+        private const val TAG = "SharedViewModel"
     }
 }

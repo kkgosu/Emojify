@@ -4229,91 +4229,6 @@
     "char": "🕧",
     "category": "objectsandsymbols"
   },
-  "octocat": {
-    "keywords": ["animal", "octopus", "github", "custom_"],
-    "char": null,
-    "category": "_custom"
-  },
-  "shipit": {
-    "keywords": ["squirrel", "detective", "animal", "sherlock", "inspector", "custom_"],
-    "char": null,
-    "category": "_custom"
-  },
-  "bowtie": {
-    "keywords": ["face", "formal", "fashion", "suit", "classy", "magic", "circus"],
-    "char": null,
-    "category": "_custom"
-  },
-  "neckbeard": {
-    "keywords": ["nerdy", "face", "custom_"],
-    "char": null,
-    "category": "_custom"
-  },
-  "metal": {
-    "keywords": ["fingers", "rocknroll", "concert", "band", "custom_"],
-    "char": null,
-    "category": "_custom"
-  },
-  "fu": {
-    "keywords": ["fuck", "finger", "dislike", "thumbsdown", "disapprove", "no", "custom_"],
-    "char": null,
-    "category": "_custom"
-  },
-  "trollface": {
-    "keywords": ["internet", "meme", "custom_"],
-    "char": null,
-    "category": "_custom"
-  },
-  "godmode": {
-    "keywords": ["doom", "oldschool"],
-    "char": null,
-    "category": "_custom"
-  },
-  "goberserk": {
-    "keywords": ["doom", "rage", "bloody", "hurt"],
-    "char": null,
-    "category": "_custom"
-  },
-  "finnadie": {
-    "keywords": ["doom", "oldschool"],
-    "char": null,
-    "category": "_custom"
-  },
-  "feelsgood": {
-    "keywords": ["doom", "oldschool"],
-    "char": null,
-    "category": "_custom"
-  },
-  "rage1": {
-    "keywords": ["angry", "mad", "hate", "despise"],
-    "char": null,
-    "category": "_custom"
-  },
-  "rage2": {
-    "keywords": ["angry", "mad", "hate", "despise"],
-    "char": null,
-    "category": "_custom"
-  },
-  "rage3": {
-    "keywords": ["angry", "mad", "hate", "despise"],
-    "char": null,
-    "category": "_custom"
-  },
-  "rage4": {
-    "keywords": ["angry", "mad", "hate", "despise"],
-    "char": null,
-    "category": "_custom"
-  },
-  "suspect": {
-    "keywords": ["mad", "custom_"],
-    "char": null,
-    "category": "_custom"
-  },
-  "hurtrealbad": {
-    "keywords": ["mad", "injured", "doom", "oldschool", "custom_"],
-    "char": null,
-    "category": "_custom"
-  },
   "keys": [
     "grinning",
     "grin",
@@ -5160,23 +5075,6 @@
     "clock11",
     "clock1130",
     "clock12",
-    "clock1230",
-    "octocat",
-    "shipit",
-    "bowtie",
-    "neckbeard",
-    "metal",
-    "fu",
-    "trollface",
-    "godmode",
-    "goberserk",
-    "finnadie",
-    "feelsgood",
-    "rage1",
-    "rage2",
-    "rage3",
-    "rage4",
-    "suspect",
-    "hurtrealbad"
+    "clock1230"
   ]
 }

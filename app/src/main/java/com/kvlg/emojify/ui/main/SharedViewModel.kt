@@ -81,31 +81,37 @@ class SharedViewModel @ViewModelInject constructor(
         }
     }
 
-    private fun StringBuilder.appendResult(word: String, specialSymbol: Char? = null): StringBuilder? {
-        val filteredWord = word.toLowerCase(Locale.getDefault()).replace("[^a-zA-Z]".toRegex(), "")
+    private fun StringBuilder.appendResult(word: String, specialSymbols: MutableList<Char> = mutableListOf()): StringBuilder? {
+        val filteredWord = word.toLowerCase(Locale.getDefault())
         val result = emojiMap.values.find { em -> em.keywords.contains(filteredWord) }
         var result2: EmojiItem2? = null
         if (result == null) {
             result2 = emojiList2.find { it.aliases.contains(filteredWord) || it.description == filteredWord || it.tags.contains(filteredWord) }
         }
         return when {
-            word.isLastSpecialSymbol() -> {
-                appendResult(word.dropLast(1), word.last())
-            }
             result != null -> {
-                append("$word ${result.char}${specialSymbol ?: ""} ")
+                append("$word${appendS(specialSymbols)} ${result.char}${appendSpecialSymbols(specialSymbols)} ")
             }
             result2 != null -> {
-                append("$word ${result2.emoji}${specialSymbol ?: ""} ")
+                append("$word${appendS(specialSymbols)} ${result2.emoji}${appendSpecialSymbols(specialSymbols)} ")
+            }
+            word.isLastSpecialSymbol() -> {
+                specialSymbols.add(word.last())
+                appendResult(word.dropLast(1), specialSymbols)
             }
             word.isPossiblePlural() -> {
-                appendResult(word.dropLast(1), word.last())
+                specialSymbols.add(word.last())
+                appendResult(word.dropLast(1), specialSymbols)
             }
             else -> {
-                append("$word${specialSymbol ?: ""} ")
+                append("$word${appendS(specialSymbols)}${appendSpecialSymbols(specialSymbols)} ")
             }
         }
     }
+
+    private fun appendS(specialSymbols: MutableList<Char>) = specialSymbols.filter { it == 's' }.joinToString("")
+
+    private fun appendSpecialSymbols(specialSymbols: MutableList<Char>) = specialSymbols.filter{ it != 's'}.reversed().joinToString("")
 
     private fun String.isPossiblePlural() = if (isNotEmpty()) last() == 's' else false
 
@@ -113,5 +119,6 @@ class SharedViewModel @ViewModelInject constructor(
 
     companion object {
         private const val TAG = "SharedViewModel"
+        private const val STRING_TO_TEST = "hello hellos hellos] hello])}/ face."
     }
 }

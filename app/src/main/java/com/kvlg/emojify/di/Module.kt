@@ -1,6 +1,7 @@
 package com.kvlg.emojify.di
 
 import android.content.Context
+import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.kvlg.emojify.data.db.HistoryTextDatabase
 import com.kvlg.emojify.domain.EmojiInteractor
@@ -35,4 +36,7 @@ object Module {
     @Provides
     fun provideInteractor(database: HistoryTextDatabase): EmojiInteractor =
         EmojiInteractor(database.getHistoryTextDao(), Dispatchers.IO)
+
+    @Provides
+    fun provideSharedPreferences(@ApplicationContext context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
 }

@@ -35,7 +35,6 @@ fun emojifyedTextAdapterDelegate(clickListener: (EmojifyedText) -> Unit) =
             clickListener(item)
         }
         bind {
-            Log.d("DELEGATE", "emojifyedTextAdapterDelegate: ${it.joinToString()}")
             binding.apply {
                 text.text = item.text
             }

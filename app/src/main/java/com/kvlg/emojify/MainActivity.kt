@@ -2,11 +2,13 @@ package com.kvlg.emojify
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayout
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.kvlg.emojify.databinding.ActivityMainBinding
 import com.kvlg.emojify.ui.main.SectionsPagerAdapter
 import com.kvlg.emojify.ui.main.SharedViewModel
@@ -53,5 +55,29 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }
+
+        sharedViewModel.showInAppReview.observe(this) {
+            if (it) showInAppReview()
+        }
+    }
+
+    private fun showInAppReview() {
+        val reviewManager = ReviewManagerFactory.create(this)
+        val requestReviewFlow = reviewManager.requestReviewFlow()
+        requestReviewFlow.addOnCompleteListener { request ->
+            if (request.isSuccessful) {
+                val reviewInfo = request.result
+                val flow = reviewManager.launchReviewFlow(this, reviewInfo)
+                flow.addOnCompleteListener {
+                    // Обрабатываем завершение сценария оценки
+                }
+            } else {
+                Log.e(TAG, request.exception?.message ?: "Error in showInAppReview()")
+            }
+        }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
     }
 }

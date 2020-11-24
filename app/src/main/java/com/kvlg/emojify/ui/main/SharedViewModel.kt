@@ -1,5 +1,7 @@
 package com.kvlg.emojify.ui.main
 
+import android.content.SharedPreferences
+import androidx.core.content.edit
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -26,7 +28,8 @@ import kotlin.collections.set
  */
 class SharedViewModel @ViewModelInject constructor(
     resourceManager: ResourceManager,
-    private val interactor: EmojiInteractor
+    private val interactor: EmojiInteractor,
+    private val preferences: SharedPreferences
 ) : ViewModel() {
 
     private val emojiMap = mutableMapOf<String, EmojiItem>()
@@ -34,6 +37,7 @@ class SharedViewModel @ViewModelInject constructor(
     private val _emojiText = MutableLiveData<String>()
     private val _loading = MutableLiveData<Boolean>()
     private val _scrollToTop = MutableLiveData<Boolean>()
+    private val _showInAppReview = MutableLiveData<Boolean>()
 
     init {
         val gson = Gson()
@@ -46,12 +50,15 @@ class SharedViewModel @ViewModelInject constructor(
         emojiKeys.keys.forEach {
             emojiMap[it] = gson.fromJson(jsonObject[it].toString(), EmojiItem::class.java)
         }
+
+        checkForInAppReview()
     }
 
     val history: LiveData<Result<List<EmojifyedText>>> = interactor.getAllTexts()
     val emojiText: LiveData<String> = _emojiText
     val loading: LiveData<Boolean> = _loading
     val scrollToTop: LiveData<Boolean> = _scrollToTop
+    val showInAppReview: LiveData<Boolean> = _showInAppReview
 
     fun emojifyText(input: String) {
         viewModelScope.launch {
@@ -111,14 +118,26 @@ class SharedViewModel @ViewModelInject constructor(
 
     private fun appendS(specialSymbols: MutableList<Char>) = specialSymbols.filter { it == 's' }.joinToString("")
 
-    private fun appendSpecialSymbols(specialSymbols: MutableList<Char>) = specialSymbols.filter{ it != 's'}.reversed().joinToString("")
+    private fun appendSpecialSymbols(specialSymbols: MutableList<Char>) = specialSymbols.filter { it != 's' }.reversed().joinToString("")
 
     private fun String.isPossiblePlural() = if (isNotEmpty()) last() == 's' else false
 
     private fun String.isLastSpecialSymbol() = if (isNotEmpty()) !last().isLetter() else false
 
+    private fun checkForInAppReview() {
+        val current = preferences.getInt(APP_ENTERS_COUNT_KEY, 1)
+        if (current == 10 || current == 20) {
+            _showInAppReview.value = true
+        }
+        preferences.edit {
+            putInt(APP_ENTERS_COUNT_KEY, current + 1)
+        }
+    }
+
     companion object {
         private const val TAG = "SharedViewModel"
         private const val STRING_TO_TEST = "hello hellos hellos] hello])}/ face."
+
+        private const val APP_ENTERS_COUNT_KEY = "APP_ENTERS_COUNT_KEY"
     }
 }

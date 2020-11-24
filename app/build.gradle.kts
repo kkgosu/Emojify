@@ -81,6 +81,8 @@ dependencies {
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.LOTTIE)
     implementation(Libs.MATERIAL)
+    implementation(Libs.PLAY_CORE_KTX)
+    implementation(Libs.PREFERENCES)
     implementation(Libs.ROOM_KTX)
     implementation(Libs.ROOM_RUNTIME)
     implementation(Libs.ROOM_COMMON)

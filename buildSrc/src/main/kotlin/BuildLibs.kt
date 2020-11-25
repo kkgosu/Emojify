@@ -1,6 +1,6 @@
 object BuildLibs {
-    val versionName = "1.5.3"
-    private val versionCodeBase = 153
+    val versionName = "1.5.4"
+    private val versionCodeBase = 154
     val versionCodeMobile = versionCodeBase + 3
 
     const val COMPILE_SDK = 30

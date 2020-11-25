@@ -1,0 +1,1 @@
+-keepclassmembers class com.kvlg.emojify.model.** { <fields>; }

@@ -29,6 +29,7 @@ class EmojiInteractor(
             historyTextDao.insertText(
                 EmojifyedText(text).toEntity()
             )
+            historyTextDao.checkLimitAndDelete()
         }
     }
 

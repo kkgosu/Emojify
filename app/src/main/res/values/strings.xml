@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">Emojifyer</string>
-    <string name="tab_text_1">Create</string>
-    <string name="tab_text_2">History</string>
-    <string name="enter_text_here">Enter text here</string>
-    <string name="create_emoji">Create Emoji</string>
-    <string name="copy">Copy</string>
-    <string name="copy_text">Emojifyed text copied!</string>
-    <string name="clear">Clear</string>
-    <string name="share">Share</string>
-    <string name="emojify">Emojify</string>
-    <string name="there_is_no_content_yet">There is no content yet</string>
-    <string name="all_the_emojifyed_texts_will_be_saved_there">All the emojifyed texts will be saved there!</string>
+    <string name="app_name" translatable="false">Emojifyer</string>
+    <string name="tab_text_1" translatable="false">Create</string>
+    <string name="tab_text_2" translatable="false">History</string>
+    <string name="enter_text_here" translatable="false">Enter text here</string>
+    <string name="create_emoji" translatable="false">Create Emoji</string>
+    <string name="copy_button" translatable="false">Copy</string>
+    <string name="copy_text" translatable="false">Emojifyed text copied!</string>
+    <string name="clear" translatable="false">Clear</string>
+    <string name="share" translatable="false">Share</string>
+    <string name="emojify" translatable="false">Emojify</string>
+    <string name="there_is_no_content_yet" translatable="false">There is no content yet</string>
+    <string name="all_the_emojifyed_texts_will_be_saved_there" translatable="false">All the emojifyed texts will be saved there!</string>
 </resources>

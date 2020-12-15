@@ -5,8 +5,8 @@
     android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#eeeeee"
     android:animateLayoutChanges="true"
+    android:background="#eeeeee"
     tools:context=".ui.main.PlaceholderFragment">
 
     <com.google.android.material.textfield.TextInputEditText
@@ -30,9 +30,11 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/create_button"
         style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:text="@string/emojify"
         android:textColor="@color/white"
         android:textStyle="bold"
@@ -47,9 +49,9 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/copy_button"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/copy"
+        android:text="@string/copy_button"
         app:icon="@drawable/ic_copy_24"
         app:iconGravity="top"
         app:layout_constraintBottom_toBottomOf="@id/button_panel"
@@ -60,7 +62,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/clear_button"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/clear"
         app:icon="@drawable/ic_clear_24"
@@ -73,7 +75,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/share_button"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/share"
@@ -88,10 +90,10 @@
         android:id="@+id/loading_animation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:background="#99FFFFFF"
-        android:focusable="true"
         android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/preloader_51"
         app:lottie_speed="1" />

@@ -81,9 +81,10 @@ class SharedViewModel @ViewModelInject constructor(
     private suspend fun modifyText(input: String): String {
         return withContext(Dispatchers.IO) {
             buildString {
-                input.split(" ").forEach { word ->
+                input.trim().split(" ").forEach { word ->
                     appendResult(word)
                 }
+                trim()
             }
         }
     }

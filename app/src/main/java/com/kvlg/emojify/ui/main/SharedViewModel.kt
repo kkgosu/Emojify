@@ -80,50 +80,43 @@ class SharedViewModel @ViewModelInject constructor(
 
     private suspend fun modifyText(input: String): String {
         return withContext(Dispatchers.IO) {
-            buildString {
-                input.trim().split(" ").forEach { word ->
-                    appendResult(word)
+            appendResult(input)
+        }
+    }
+
+    private fun appendResult(input: String): String {
+        return buildString {
+            val lastWord = mutableListOf<Char>()
+            input.forEach {
+                if (it.isLetter()) {
+                    lastWord.add(it)
+                } else {
+                    checkForEmojiAndPossiblyAppend(lastWord)
+                    append(it)
+                    lastWord.clear()
                 }
-                trim()
+            }
+            checkForEmojiAndPossiblyAppend(lastWord)
+        }
+    }
+
+    private fun StringBuilder.checkForEmojiAndPossiblyAppend(lastWord: MutableList<Char>) {
+        if (lastWord.isNotEmpty()) {
+            val fullWord = lastWord.joinToString("")
+            val emoji = findEmoji(fullWord)
+            append(fullWord)
+            emoji?.let { em ->
+                append(" $em")
             }
         }
     }
 
-    private fun StringBuilder.appendResult(word: String, specialSymbols: MutableList<Char> = mutableListOf()): StringBuilder? {
+    private fun findEmoji(word: String): String? {
         val filteredWord = word.toLowerCase(Locale.getDefault())
         val result = emojiMap.values.find { em -> em.keywords.contains(filteredWord) }
-        var result2: EmojiItem2? = null
-        if (result == null) {
-            result2 = emojiList2.find { it.aliases.contains(filteredWord) || it.description == filteredWord || it.tags.contains(filteredWord) }
-        }
-        return when {
-            result != null -> {
-                append("$word${appendS(specialSymbols)} ${result.char}${appendSpecialSymbols(specialSymbols)} ")
-            }
-            result2 != null -> {
-                append("$word${appendS(specialSymbols)} ${result2.emoji}${appendSpecialSymbols(specialSymbols)} ")
-            }
-            word.isLastSpecialSymbol() -> {
-                specialSymbols.add(word.last())
-                appendResult(word.dropLast(1), specialSymbols)
-            }
-            word.isPossiblePlural() -> {
-                specialSymbols.add(word.last())
-                appendResult(word.dropLast(1), specialSymbols)
-            }
-            else -> {
-                append("$word${appendS(specialSymbols)}${appendSpecialSymbols(specialSymbols)} ")
-            }
-        }
+        return result?.char
+            ?: emojiList2.find { it.aliases.contains(filteredWord) || it.description == filteredWord || it.tags.contains(filteredWord) }?.emoji
     }
-
-    private fun appendS(specialSymbols: MutableList<Char>) = specialSymbols.filter { it == 's' }.joinToString("")
-
-    private fun appendSpecialSymbols(specialSymbols: MutableList<Char>) = specialSymbols.filter { it != 's' }.reversed().joinToString("")
-
-    private fun String.isPossiblePlural() = if (isNotEmpty()) last() == 's' else false
-
-    private fun String.isLastSpecialSymbol() = if (isNotEmpty()) !last().isLetter() else false
 
     private fun checkForInAppReview() {
         val current = preferences.getInt(APP_ENTERS_COUNT_KEY, 1)

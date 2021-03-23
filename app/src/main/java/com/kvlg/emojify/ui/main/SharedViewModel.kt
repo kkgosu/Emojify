@@ -66,7 +66,9 @@ class SharedViewModel @ViewModelInject constructor(
             val result = modifyText(input)
             _emojiText.value = result
             _loading.value = false
-            saveText(result)
+            if (result.isNotEmpty()) {
+                saveText(result)
+            }
         }
     }
 
@@ -87,7 +89,7 @@ class SharedViewModel @ViewModelInject constructor(
     private fun appendResult(input: String): String {
         return buildString {
             val lastWord = mutableListOf<Char>()
-            input.forEach {
+            input.trim().forEach {
                 if (it.isLetter()) {
                     lastWord.add(it)
                 } else {
@@ -103,10 +105,12 @@ class SharedViewModel @ViewModelInject constructor(
     private fun StringBuilder.checkForEmojiAndPossiblyAppend(lastWord: MutableList<Char>) {
         if (lastWord.isNotEmpty()) {
             val fullWord = lastWord.joinToString("")
-            val emoji = findEmoji(fullWord)
-            append(fullWord)
-            emoji?.let { em ->
-                append(" $em")
+            if (fullWord.isNotEmpty()) {
+                val emoji = findEmoji(fullWord)
+                append(fullWord)
+                emoji?.let { em ->
+                    append(" $em")
+                }
             }
         }
     }

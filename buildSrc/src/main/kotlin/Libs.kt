@@ -22,5 +22,5 @@ object Libs {
     const val ROOM_COMPILER = "androidx.room:room-compiler:2.2.5"
     const val ROOM_COMMON = "androidx.room:room-common:2.2.5"
     const val ROOM_KTX = "androidx.room:room-ktx:2.2.5"
-    const val ROOM_RUNTIME = "androidx.room:room-runtime:2.2.5"
+    const val ROOM_RUNTIME = "androidx.room:room-runtime:2.2.6"
 }

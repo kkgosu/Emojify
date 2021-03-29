@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
-    id(BuildLibs.RELEASE_HUB_PLUGIN) version "1.6.1"
+    id(BuildLibs.RELEASE_HUB_PLUGIN) version "2.0.1"
 }
 
 buildscript {

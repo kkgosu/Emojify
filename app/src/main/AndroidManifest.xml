@@ -14,13 +14,17 @@
             android:name=".MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.Emojify.NoActionBar">
+            android:theme="@style/Theme.Emojify">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ScreenshotActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Emojify.Transparent" />
     </application>
 
 </manifest>

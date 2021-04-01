@@ -17,18 +17,23 @@
         <item name="editTextBackground">@color/gray_200</item>
         <item name="android:fontFamily">@font/futurabook</item>
         <item name="fontFamily">@font/futurabook</item>
-    </style>
-
-    <style name="Theme.Emojify.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 
-    <style name="AppTheme.Transparent" parent="Theme.Emojify">
+    <style name="Theme.Emojify.Night">
+        <item name="colorPrimaryVariant">@color/black</item>
+    </style>
+
+    <style name="Theme.Emojify.Transparent">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowAnimationStyle">@null</item>
     </style>
 
     <style name="Theme.Emojify.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

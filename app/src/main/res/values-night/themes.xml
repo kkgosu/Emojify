@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Emojify" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.Emojify.Night" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/white</item>
+        <item name="colorPrimaryVariant">@color/black</item>
         <item name="colorOnPrimary">@color/purple_500</item>
         <item name="colorAccent">?attr/colorPrimary</item>
         <!-- Secondary brand color. -->

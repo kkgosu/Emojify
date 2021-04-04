@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="#eeeeee"
+    android:background="?attr/editTextBackground"
     tools:context=".ui.main.PlaceholderFragment">
 
     <com.google.android.material.textfield.TextInputEditText

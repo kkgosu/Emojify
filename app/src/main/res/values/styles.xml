@@ -6,7 +6,6 @@
     </style>
 
     <style name="InputEditText">
-        <item name="android:background">?attr/editTextBackground</item>
         <item name="android:gravity">top|start</item>
         <item name="android:inputType">textMultiLine</item>
         <item name="android:padding">16dp</item>

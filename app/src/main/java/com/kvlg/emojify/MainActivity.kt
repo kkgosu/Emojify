@@ -2,15 +2,14 @@ package com.kvlg.emojify
 
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Canvas
-import android.os.Build
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewTreeObserver
-import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+import android.view.WindowManager
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.activity.viewModels
@@ -46,6 +45,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        window.statusBarColor = Color.TRANSPARENT;
+
         binding.hiddenImageView.apply {
             setImageBitmap(globalBitmap)
             scaleType = ImageView.ScaleType.MATRIX
@@ -73,7 +77,7 @@ class MainActivity : AppCompatActivity() {
 
         FluidContentResizer.listen(this)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
                 APPEARANCE_LIGHT_STATUS_BARS,
                 APPEARANCE_LIGHT_STATUS_BARS
@@ -82,7 +86,7 @@ class MainActivity : AppCompatActivity() {
             var flags = window.decorView.systemUiVisibility
             flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             window.decorView.systemUiVisibility = flags
-        }
+        }*/
 
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
@@ -108,29 +112,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun presentActivity(view: View) {
-        val w = binding.coordinator.measuredWidth
-        val h = binding.coordinator.measuredHeight
+        val w = binding.container.measuredWidth
+        val h = binding.container.measuredHeight
         val bitmap = createBitmap(w, h)
         val canvas = Canvas(bitmap)
-        binding.coordinator.draw(canvas)
+        binding.container.draw(canvas)
         globalBitmap = bitmap
 
         val revealX: Int = (view.x + view.width / 2).toInt()
         val revealY: Int = (view.y + view.height / 2).toInt()
 
         appSettings.setTheme(!appSettings.isLightTheme())
-        revealActivity()
         startActivity(newIntent(this, revealX, revealY))
     }
 
     private fun revealActivity() {
         with(binding.hiddenImageView) {
             val finalRadius = max(width, height) * 1.1f
-            ViewAnimationUtils.createCircularReveal(this, revealX, revealY, 0f, finalRadius).run {
+            ViewAnimationUtils.createCircularReveal(binding.container, revealX, revealY, 0f, finalRadius).run {
                 doOnEnd {
                     setImageDrawable(null)
-                    globalBitmap = null
                     isVisible = false
+                    globalBitmap = null
                 }
                 duration = 4000
                 interpolator = AccelerateInterpolator()
@@ -152,33 +155,6 @@ class MainActivity : AppCompatActivity() {
             } else {
                 Log.e(TAG, request.exception?.message ?: "Error in showInAppReview()")
             }
-        }
-    }
-
-    private fun setNewTheme(theme: Resources.Theme, clickView: View) {
-        if (binding.hiddenImageView.isVisible) return
-
-        val w = binding.coordinator.measuredWidth
-        val h = binding.coordinator.measuredHeight
-
-        val bitmap = createBitmap(w, h)
-        val canvas = Canvas(bitmap)
-        binding.coordinator.draw(canvas)
-
-        binding.hiddenImageView.setImageBitmap(bitmap)
-        binding.hiddenImageView.isVisible = true
-
-        val finalRadius = max(binding.coordinator.width, binding.coordinator.height) * 1.1f
-
-        val revealX: Int = (clickView.x + clickView.width / 2).toInt()
-        val revealY: Int = (clickView.y + clickView.height / 2).toInt()
-        ViewAnimationUtils.createCircularReveal(binding.coordinator, revealX, revealY, 0f, finalRadius).run {
-            duration = 400
-            doOnEnd {
-                binding.hiddenImageView.setImageDrawable(null)
-                binding.hiddenImageView.isVisible = false
-            }
-            start()
         }
     }
 

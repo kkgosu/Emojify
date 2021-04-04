@@ -23,18 +23,8 @@
     </style>
 
     <style name="Theme.Emojify.Night">
-        <item name="colorPrimaryVariant">@color/black</item>
-        <item name="editTextBackground">@color/gray_800</item>
-    </style>
-
-    <style name="Theme.Emojify.Transparent">
-        <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowAnimationStyle">@null</item>
+        <item name="colorPrimaryVariant">@color/gray_900</item>
+        <item name="editTextBackground">@color/gray_700</item>
     </style>
 
     <style name="Theme.Emojify.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

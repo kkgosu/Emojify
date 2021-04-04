@@ -3,13 +3,13 @@ package com.kvlg.emojify
 import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
-import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewTreeObserver
-import android.view.WindowManager
+import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.activity.viewModels
@@ -45,11 +45,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-        window.statusBarColor = Color.TRANSPARENT;
-
         binding.hiddenImageView.apply {
             setImageBitmap(globalBitmap)
             scaleType = ImageView.ScaleType.MATRIX
@@ -77,7 +72,7 @@ class MainActivity : AppCompatActivity() {
 
         FluidContentResizer.listen(this)
 
-/*        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.insetsController?.setSystemBarsAppearance(
                 APPEARANCE_LIGHT_STATUS_BARS,
                 APPEARANCE_LIGHT_STATUS_BARS
@@ -86,7 +81,7 @@ class MainActivity : AppCompatActivity() {
             var flags = window.decorView.systemUiVisibility
             flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             window.decorView.systemUiVisibility = flags
-        }*/
+        }
 
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
@@ -140,6 +135,15 @@ class MainActivity : AppCompatActivity() {
                 start()
             }
         }
+    }
+
+    private fun getStatusBarHeight(): Int {
+        var result = 0
+        val resourceId = resources.getIdentifier("status_bar_height", "dimen", "android")
+        if (resourceId > 0) {
+            result = resources.getDimensionPixelSize(resourceId)
+        }
+        return result
     }
 
     private fun showInAppReview() {

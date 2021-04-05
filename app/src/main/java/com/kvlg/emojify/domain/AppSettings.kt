@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.kvlg.emojify.utils.Theme
 
 /**
  * @author Konstantin Koval
@@ -14,13 +15,13 @@ class AppSettings(
 ) {
     private var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun setTheme(isLight: Boolean) {
+    fun swapThemes() {
         prefs.edit {
-            putBoolean(THEME_PREFS, isLight)
+            putBoolean(THEME_PREFS, !prefs.getBoolean(THEME_PREFS, true))
         }
     }
 
-    fun isLightTheme(): Boolean = prefs.getBoolean(THEME_PREFS, true)
+    fun currentTheme(): Theme = if (prefs.getBoolean(THEME_PREFS, true)) Theme.LIGHT else Theme.DARK
 
     companion object {
         private const val THEME_PREFS = "theme"

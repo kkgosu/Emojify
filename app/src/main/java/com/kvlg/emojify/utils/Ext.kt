@@ -6,6 +6,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
@@ -45,6 +46,16 @@ fun LottieAnimationView.hideAnimation() {
 fun LottieAnimationView.showAnimation() {
     visibility = View.VISIBLE
     playAnimation()
+}
+
+fun AppCompatActivity.updateForTheme(theme: Theme) = when (theme) {
+    Theme.DARK -> setTheme(R.style.Theme_Emojify_Night)
+    Theme.LIGHT -> setTheme(R.style.Theme_Emojify)
+}
+
+enum class Theme(val storageKey: String) {
+    LIGHT("light"),
+    DARK("dark"),
 }
 
 private const val CLIP_LABEL = "CLIP_LABEL"

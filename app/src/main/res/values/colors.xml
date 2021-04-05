@@ -13,4 +13,10 @@
     <color name="gray_700">#616161</color>
     <color name="gray_800">#424242</color>
     <color name="gray_900">#212121</color>
+
+    <!-- Scrim colors -->
+    <color name="system_ui_scrim_light">#B3FFFFFF</color> <!-- 70% white -->
+    <color name="system_ui_scrim_black">#40000000</color> <!-- 25% black -->
+    <color name="nav_bar_scrim">@color/system_ui_scrim_black</color>
+    <color name="status_bar_scrim">@color/system_ui_scrim_black</color>
 </resources>

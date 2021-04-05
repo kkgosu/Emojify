@@ -3,13 +3,11 @@ package com.kvlg.emojify
 import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewTreeObserver
-import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.animation.AccelerateInterpolator
 import android.widget.ImageView
 import androidx.activity.viewModels
@@ -23,6 +21,7 @@ import com.kvlg.emojify.databinding.ActivityMainBinding
 import com.kvlg.emojify.domain.AppSettings
 import com.kvlg.emojify.ui.main.SectionsPagerAdapter
 import com.kvlg.emojify.ui.main.SharedViewModel
+import com.kvlg.emojify.utils.updateForTheme
 import com.kvlg.fluidlayout.FluidContentResizer
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.max
@@ -40,7 +39,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appSettings = AppSettings(this)
-        setTheme(if (appSettings.isLightTheme()) R.style.Theme_Emojify else R.style.Theme_Emojify_Night)
+        updateForTheme(appSettings.currentTheme())
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -72,16 +72,36 @@ class MainActivity : AppCompatActivity() {
 
         FluidContentResizer.listen(this)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            window.insetsController?.setSystemBarsAppearance(
-                APPEARANCE_LIGHT_STATUS_BARS,
-                APPEARANCE_LIGHT_STATUS_BARS
-            )
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            var flags = window.decorView.systemUiVisibility
-            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            window.decorView.systemUiVisibility = flags
-        }
+/*        window.apply {
+            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }*/
+
+/*        if (appSettings.isLightTheme()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.insetsController?.setSystemBarsAppearance(
+                    APPEARANCE_LIGHT_STATUS_BARS,
+                    APPEARANCE_LIGHT_STATUS_BARS
+                )
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                var flags = window.decorView.systemUiVisibility
+                flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                window.decorView.systemUiVisibility = flags
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.insetsController?.setSystemBarsAppearance(
+                    APPEARANCE_LIGHT_STATUS_BARS.inv(),
+                    APPEARANCE_LIGHT_STATUS_BARS
+                )
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                var flags = window.decorView.systemUiVisibility
+                flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+                window.decorView.systemUiVisibility = flags
+
+            }
+        }*/
 
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
@@ -117,7 +137,7 @@ class MainActivity : AppCompatActivity() {
         val revealX: Int = (view.x + view.width / 2).toInt()
         val revealY: Int = (view.y + view.height / 2).toInt()
 
-        appSettings.setTheme(!appSettings.isLightTheme())
+        appSettings.swapThemes()
         startActivity(newIntent(this, revealX, revealY))
     }
 

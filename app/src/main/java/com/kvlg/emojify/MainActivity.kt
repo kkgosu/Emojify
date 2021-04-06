@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.ViewTreeObserver
@@ -17,9 +16,7 @@ import androidx.core.graphics.createBitmap
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import com.google.android.material.tabs.TabLayout
-import com.google.android.play.core.review.ReviewManagerFactory
 import com.kvlg.emojify.databinding.ActivityMainBinding
-import com.kvlg.emojify.domain.AppSettings
 import com.kvlg.emojify.ui.main.SectionsPagerAdapter
 import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.emojify.utils.updateForTheme
@@ -31,21 +28,23 @@ import kotlin.math.max
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var appSettings: AppSettings
 
     private val sharedViewModel: SharedViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
 
     private var revealX: Int = 0
     private var revealY: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        appSettings = AppSettings(this)
-        updateForTheme(appSettings.currentTheme())
-
         super.onCreate(savedInstanceState)
+        updateForTheme(mainViewModel.getCurrentTheme())
+
+        FluidContentResizer.listen(this)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.container.updatePadding(0, getStatusBarHeight(), 0, 0)
         binding.hiddenImageView.apply {
             setImageBitmap(globalBitmap)
             scaleType = ImageView.ScaleType.MATRIX
@@ -71,41 +70,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        FluidContentResizer.listen(this)
-
-        binding.container.updatePadding(0, getStatusBarHeight(), 0, 0)
-
-/*        window.apply {
-            clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        }*/
-
-/*        if (appSettings.isLightTheme()) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                window.insetsController?.setSystemBarsAppearance(
-                    APPEARANCE_LIGHT_STATUS_BARS,
-                    APPEARANCE_LIGHT_STATUS_BARS
-                )
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                var flags = window.decorView.systemUiVisibility
-                flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                window.decorView.systemUiVisibility = flags
-            }
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                window.insetsController?.setSystemBarsAppearance(
-                    APPEARANCE_LIGHT_STATUS_BARS.inv(),
-                    APPEARANCE_LIGHT_STATUS_BARS
-                )
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                var flags = window.decorView.systemUiVisibility
-                flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
-                window.decorView.systemUiVisibility = flags
-
-            }
-        }*/
-
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         with(binding) {
@@ -123,10 +87,6 @@ class MainActivity : AppCompatActivity() {
             })
             changeThemeButton.setOnClickListener(this@MainActivity::presentActivity)
         }
-
-        sharedViewModel.showInAppReview.observe(this) {
-            if (it) showInAppReview()
-        }
     }
 
     private fun presentActivity(view: View) {
@@ -140,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         val revealX: Int = (view.x + view.width / 2).toInt()
         val revealY: Int = (view.y + view.height / 2).toInt()
 
-        appSettings.swapThemes()
+        mainViewModel.swapThemes()
         startActivity(newIntent(this, revealX, revealY))
     }
 
@@ -167,22 +127,6 @@ class MainActivity : AppCompatActivity() {
             result = resources.getDimensionPixelSize(resourceId)
         }
         return result
-    }
-
-    private fun showInAppReview() {
-        val reviewManager = ReviewManagerFactory.create(this)
-        val requestReviewFlow = reviewManager.requestReviewFlow()
-        requestReviewFlow.addOnCompleteListener { request ->
-            if (request.isSuccessful) {
-                val reviewInfo = request.result
-                val flow = reviewManager.launchReviewFlow(this, reviewInfo)
-                flow.addOnCompleteListener {
-                    // Обрабатываем завершение сценария оценки
-                }
-            } else {
-                Log.e(TAG, request.exception?.message ?: "Error in showInAppReview()")
-            }
-        }
     }
 
     companion object {

@@ -124,7 +124,7 @@ class SharedViewModel @ViewModelInject constructor(
 
     private fun checkForInAppReview() {
         val current = preferences.getInt(APP_ENTERS_COUNT_KEY, 1)
-        if (current == 10 || current == 20) {
+        if (current % 20 == 0) {
             _showInAppReview.value = true
         }
         preferences.edit {

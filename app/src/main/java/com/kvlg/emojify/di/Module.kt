@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import com.kvlg.emojify.data.db.HistoryTextDatabase
+import com.kvlg.emojify.domain.AppSettings
 import com.kvlg.emojify.domain.EmojiInteractor
 import com.kvlg.emojify.domain.ResourceManager
 import dagger.Module
@@ -39,4 +40,7 @@ object Module {
 
     @Provides
     fun provideSharedPreferences(@ApplicationContext context: Context) = PreferenceManager.getDefaultSharedPreferences(context)
+
+    @Provides
+    fun provideAppSettings(@ApplicationContext context: Context) = AppSettings(context)
 }

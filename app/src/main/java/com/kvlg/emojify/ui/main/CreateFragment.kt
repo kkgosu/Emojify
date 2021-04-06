@@ -2,13 +2,19 @@ package com.kvlg.emojify.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.kvlg.emojify.databinding.FragmentCreateBinding
-import com.kvlg.emojify.utils.*
+import com.kvlg.emojify.utils.copyToClipboard
+import com.kvlg.emojify.utils.hideAnimation
+import com.kvlg.emojify.utils.hideKeyboard
+import com.kvlg.emojify.utils.showAnimation
+import com.kvlg.emojify.utils.text
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -29,6 +35,28 @@ class CreateFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        subscribeToObservers()
+        initViews()
+    }
+
+    private fun subscribeToObservers() {
+        viewModel.emojiText.observe(viewLifecycleOwner, binding.inputText::setText)
+        viewModel.loading.observe(viewLifecycleOwner) {
+            if (it) {
+                binding.loadingAnimation.showAnimation()
+                binding.createButton.isEnabled = false
+            } else {
+                binding.loadingAnimation.hideAnimation()
+                binding.createButton.isEnabled = true
+            }
+        }
+
+        viewModel.showInAppReview.observe(viewLifecycleOwner) {
+            if (it) showInAppReview()
+        }
+    }
+
+    private fun initViews() {
         binding.createButton.setOnClickListener {
             hideKeyboard()
             binding.inputText.text()?.let(viewModel::emojifyText)
@@ -45,14 +73,20 @@ class CreateFragment : Fragment() {
             intent.putExtra(Intent.EXTRA_TEXT, binding.inputText.text())
             startActivity(Intent.createChooser(intent, "Share via"))
         }
-        viewModel.emojiText.observe(viewLifecycleOwner, binding.inputText::setText)
-        viewModel.loading.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.loadingAnimation.showAnimation()
-                binding.createButton.isEnabled = false
+    }
+
+    private fun showInAppReview() {
+        val reviewManager = ReviewManagerFactory.create(requireContext())
+        val requestReviewFlow = reviewManager.requestReviewFlow()
+        requestReviewFlow.addOnCompleteListener { request ->
+            if (request.isSuccessful) {
+                val reviewInfo = request.result
+                val flow = reviewManager.launchReviewFlow(requireActivity(), reviewInfo)
+                flow.addOnCompleteListener {
+                    // Обрабатываем завершение сценария оценки
+                }
             } else {
-                binding.loadingAnimation.hideAnimation()
-                binding.createButton.isEnabled = true
+                Log.e(TAG, request.exception?.message ?: "Error in showInAppReview()")
             }
         }
     }
@@ -63,6 +97,7 @@ class CreateFragment : Fragment() {
     }
 
     companion object {
+        private val TAG = "CreateFragment"
         fun newInstance() = CreateFragment().apply {
             arguments = Bundle().apply {
 

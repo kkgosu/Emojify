@@ -150,7 +150,7 @@ class MainActivity : AppCompatActivity() {
                     isVisible = false
                     globalBitmap = null
                 }
-                duration = 4000
+                duration = 1000
                 interpolator = AccelerateInterpolator()
                 start()
             }

@@ -2,11 +2,14 @@ package com.kvlg.emojify.utils
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.os.Build
 import android.view.View
+import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
@@ -49,8 +52,34 @@ fun LottieAnimationView.showAnimation() {
 }
 
 fun AppCompatActivity.updateForTheme(theme: Theme) = when (theme) {
-    Theme.DARK -> setTheme(R.style.Theme_Emojify_Night)
-    Theme.LIGHT -> setTheme(R.style.Theme_Emojify)
+    Theme.DARK -> {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.setSystemBarsAppearance(
+                0,
+                APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            var flags = window.decorView.systemUiVisibility
+            flags = flags and View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+            window.decorView.systemUiVisibility = flags
+            window.statusBarColor = ContextCompat.getColor(this, R.color.gray_900)
+        }
+        setTheme(R.style.Theme_Emojify_Night)
+    }
+    Theme.LIGHT -> {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.insetsController?.setSystemBarsAppearance(
+                APPEARANCE_LIGHT_STATUS_BARS,
+                APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            var flags = window.decorView.systemUiVisibility
+            flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            window.decorView.systemUiVisibility = flags
+            window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+        }
+        setTheme(R.style.Theme_Emojify)
+    }
 }
 
 enum class Theme(val storageKey: String) {

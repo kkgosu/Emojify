@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.animation.doOnEnd
 import androidx.core.graphics.createBitmap
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import com.google.android.material.tabs.TabLayout
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.kvlg.emojify.databinding.ActivityMainBinding
@@ -71,6 +72,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         FluidContentResizer.listen(this)
+
+        binding.container.updatePadding(0, getStatusBarHeight(), 0, 0)
 
 /*        window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)

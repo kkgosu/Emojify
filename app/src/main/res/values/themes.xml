@@ -11,6 +11,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Window decor -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorControlNormal">@color/purple_500</item>
         <item name="editTextBackground">@color/gray_200</item>
         <item name="android:fontFamily">@font/futurabook</item>

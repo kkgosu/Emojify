@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.kvlg.emojify.databinding.FragmentHistoryBinding
 import com.kvlg.emojify.domain.Result
@@ -20,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * @since 13.11.2020
  */
 @AndroidEntryPoint
-class HistoryFragment : Fragment(), HistoryAdapter.HistoryTextInteraction {
+class HistoryFragment : BaseFragment(), HistoryAdapter.HistoryTextInteraction {
 
     private lateinit var adapter: HistoryAdapter
 
@@ -35,21 +34,31 @@ class HistoryFragment : Fragment(), HistoryAdapter.HistoryTextInteraction {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupAdapter()
+        subscribeToObservers()
+    }
+
+    private fun setupAdapter() {
         adapter = HistoryAdapter(this)
         binding.recyclerView.adapter = adapter
-        viewModel.scrollToTop.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.recyclerView.smoothScrollToPosition(0)
-            }
-        }
-        viewModel.history.observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Success -> {
-                    adapter.items = result.data
-                    hideOrShowEmptyState(result.data.isEmpty())
-                    viewModel.setScrollToTop(true)
+    }
+
+    private fun subscribeToObservers() {
+        with(viewModel) {
+            scrollToTop { isScrollNeeded ->
+                if (isScrollNeeded) {
+                    binding.recyclerView.smoothScrollToPosition(0)
                 }
-                else -> toast("Error on getting history :c")
+            }
+            history { result ->
+                when (result) {
+                    is Result.Success -> {
+                        adapter.items = result.data
+                        hideOrShowEmptyState(result.data.isEmpty())
+                        viewModel.setScrollToTop(true)
+                    }
+                    else -> toast("Error on getting history :c")
+                }
             }
         }
     }
@@ -64,14 +73,16 @@ class HistoryFragment : Fragment(), HistoryAdapter.HistoryTextInteraction {
     }
 
     private fun hideOrShowEmptyState(show: Boolean) {
-        if (show) {
-            binding.emptyListAnimation.showAnimation()
-            binding.emptyTitle.visibility = View.VISIBLE
-            binding.emptySubtitle.visibility = View.VISIBLE
-        } else {
-            binding.emptyListAnimation.hideAnimation()
-            binding.emptyTitle.visibility = View.GONE
-            binding.emptySubtitle.visibility = View.GONE
+        with(binding) {
+            if (show) {
+                emptyListAnimation.showAnimation()
+                emptyTitle.visibility = View.VISIBLE
+                emptySubtitle.visibility = View.VISIBLE
+            } else {
+                emptyListAnimation.hideAnimation()
+                emptyTitle.visibility = View.GONE
+                emptySubtitle.visibility = View.GONE
+            }
         }
     }
 

@@ -6,10 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.kvlg.emojify.databinding.FragmentCreateBinding
+import com.kvlg.emojify.domain.data
 import com.kvlg.emojify.utils.copyToClipboard
 import com.kvlg.emojify.utils.hideAnimation
 import com.kvlg.emojify.utils.hideKeyboard
@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * @since 11.11.2020
  */
 @AndroidEntryPoint
-class CreateFragment : Fragment() {
+class CreateFragment : BaseFragment() {
 
     private var _binding: FragmentCreateBinding? = null
     private val binding get() = _binding!!
@@ -40,38 +40,48 @@ class CreateFragment : Fragment() {
     }
 
     private fun subscribeToObservers() {
-        viewModel.emojiText.observe(viewLifecycleOwner, binding.inputText::setText)
-        viewModel.loading.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.loadingAnimation.showAnimation()
-                binding.createButton.isEnabled = false
-            } else {
-                binding.loadingAnimation.hideAnimation()
-                binding.createButton.isEnabled = true
+        with(viewModel) {
+            emojiText(binding.inputText::setText)
+            loading { isLoading ->
+                if (isLoading) {
+                    binding.loadingAnimation.showAnimation()
+                    binding.createButton.isEnabled = false
+                } else {
+                    binding.loadingAnimation.hideAnimation()
+                    binding.createButton.isEnabled = true
+                }
             }
-        }
 
-        viewModel.showInAppReview.observe(viewLifecycleOwner) {
-            if (it) showInAppReview()
+            showInAppReview { isNeedToShow ->
+                if (isNeedToShow) showInAppReview()
+            }
+
+            state { state ->
+                state.data?.let { data ->
+                    binding.inputText.setText(data.text)
+                }
+            }
         }
     }
 
     private fun initViews() {
-        binding.createButton.setOnClickListener {
-            hideKeyboard()
-            binding.inputText.text()?.let(viewModel::emojifyText)
-        }
-        binding.copyButton.setOnClickListener {
-            copyToClipboard(binding.inputText.text())
-        }
-        binding.clearButton.setOnClickListener {
-            binding.inputText.text?.clear()
-        }
-        binding.shareButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_TEXT, binding.inputText.text())
-            startActivity(Intent.createChooser(intent, "Share via"))
+        with(binding) {
+            createButton.setOnClickListener {
+                hideKeyboard()
+                inputText.text()?.let(viewModel::emojifyText)
+            }
+            copyButton.setOnClickListener {
+                copyToClipboard(inputText.text())
+            }
+            clearButton.setOnClickListener {
+                inputText.text?.clear()
+            }
+            shareButton.setOnClickListener {
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.type = "text/plain"
+                intent.putExtra(Intent.EXTRA_TEXT, binding.inputText.text())
+                startActivity(Intent.createChooser(intent, "Share via"))
+            }
         }
     }
 
@@ -89,6 +99,11 @@ class CreateFragment : Fragment() {
                 Log.e(TAG, request.exception?.message ?: "Error in showInAppReview()")
             }
         }
+    }
+
+    override fun onPause() {
+        viewModel.setText(binding.inputText.text().orEmpty())
+        super.onPause()
     }
 
     override fun onDestroy() {

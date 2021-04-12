@@ -17,6 +17,7 @@ import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import com.google.android.material.tabs.TabLayout
 import com.kvlg.emojify.databinding.ActivityMainBinding
+import com.kvlg.emojify.domain.data
 import com.kvlg.emojify.ui.main.SectionsPagerAdapter
 import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.emojify.utils.updateForTheme
@@ -78,7 +79,10 @@ class MainActivity : AppCompatActivity() {
             tabs.getTabAt(0)?.setIcon(R.drawable.ic_round_create_24)
             tabs.getTabAt(1)?.setIcon(R.drawable.ic_round_history_24)
             tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: TabLayout.Tab?) {}
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    sharedViewModel.setPage(tab?.position ?: 0)
+                }
+
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
 
                 override fun onTabReselected(tab: TabLayout.Tab?) {
@@ -86,6 +90,15 @@ class MainActivity : AppCompatActivity() {
                 }
             })
             changeThemeButton.setOnClickListener(this@MainActivity::presentActivity)
+        }
+        subscribeToObservers()
+    }
+
+    private fun subscribeToObservers() {
+        sharedViewModel.state.observe(this) {
+            it.data?.let { state ->
+                binding.tabs.getTabAt(state.page)?.select()
+            }
         }
     }
 
@@ -100,6 +113,7 @@ class MainActivity : AppCompatActivity() {
         val revealX: Int = (view.x + view.width / 2).toInt()
         val revealY: Int = (view.y + view.height / 2).toInt()
 
+        sharedViewModel.saveState()
         mainViewModel.swapThemes()
         startActivity(newIntent(this, revealX, revealY))
     }

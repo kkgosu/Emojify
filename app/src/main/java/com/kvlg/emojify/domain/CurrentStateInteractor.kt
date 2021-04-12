@@ -3,9 +3,8 @@ package com.kvlg.emojify.domain
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
-import com.kvlg.emojify.data.db.history.EmojifyedTextEntity
-import com.kvlg.emojify.data.db.history.HistoryTextDao
-import com.kvlg.emojify.model.EmojifyedText
+import com.kvlg.emojify.data.db.current.CurrentStateDao
+import com.kvlg.emojify.model.State
 import com.kvlg.emojify.model.toDomainModel
 import com.kvlg.emojify.model.toEntity
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,30 +16,25 @@ import kotlinx.coroutines.withContext
 
 /**
  * @author Konstantin Koval
- * @since 13.11.2020
+ * @since 12.04.2021
  */
-class EmojiInteractor(
-    private val historyTextDao: HistoryTextDao,
+class CurrentStateInteractor(
+    private val currentStateDao: CurrentStateDao,
     private val dispatcher: CoroutineDispatcher
 ) {
+    suspend fun saveCurrentState(page: Int, text: String) = executeCoroutine {
+        currentStateDao.saveCurrentState(
+            State(page, text).toEntity()
+        )
+    }
 
-    suspend fun saveText(text: String) {
-        executeCoroutine {
-            historyTextDao.insertText(
-                EmojifyedText(text).toEntity()
-            )
-            historyTextDao.checkLimitAndDelete()
+    fun getCurrentState(): LiveData<Result<State>> = executeFlow {
+        currentStateDao.getCurrentState().map {
+            Result.Success(it.toDomainModel())
         }
     }
 
-    fun getAllTexts(): LiveData<Result<List<EmojifyedText>>> {
-        return executeFlow {
-            historyTextDao.getAllTexts().map { list ->
-                val mappedList = list.map(EmojifyedTextEntity::toDomainModel)
-                Result.Success(mappedList)
-            }
-        }
-    }
+    fun resetState() = currentStateDao.resetState()
 
     private suspend fun <T> executeCoroutine(block: () -> T): Result<T> {
         return try {
@@ -63,6 +57,6 @@ class EmojiInteractor(
     }
 
     companion object {
-        private val TAG = "EmojiInteractor"
+        private val TAG = "CurrentStateInteractor"
     }
 }

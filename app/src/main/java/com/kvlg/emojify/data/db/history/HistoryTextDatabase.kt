@@ -1,4 +1,4 @@
-package com.kvlg.emojify.data.db
+package com.kvlg.emojify.data.db.history
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,6 +1,6 @@
 package com.kvlg.emojify.model
 
-import com.kvlg.emojify.data.db.EmojifyedTextEntity
+import com.kvlg.emojify.data.db.history.EmojifyedTextEntity
 
 /**
  * @author Konstantin Koval

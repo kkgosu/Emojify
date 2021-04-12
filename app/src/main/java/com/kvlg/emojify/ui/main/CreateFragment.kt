@@ -8,8 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.google.android.play.core.review.ReviewManagerFactory
+import com.kvlg.emojify.currentText
 import com.kvlg.emojify.databinding.FragmentCreateBinding
-import com.kvlg.emojify.domain.data
 import com.kvlg.emojify.utils.copyToClipboard
 import com.kvlg.emojify.utils.hideAnimation
 import com.kvlg.emojify.utils.hideKeyboard
@@ -55,12 +55,6 @@ class CreateFragment : BaseFragment() {
             showInAppReview { isNeedToShow ->
                 if (isNeedToShow) showInAppReview()
             }
-
-            state { state ->
-                state.data?.let { data ->
-                    binding.inputText.setText(data.text)
-                }
-            }
         }
     }
 
@@ -82,6 +76,7 @@ class CreateFragment : BaseFragment() {
                 intent.putExtra(Intent.EXTRA_TEXT, binding.inputText.text())
                 startActivity(Intent.createChooser(intent, "Share via"))
             }
+            binding.inputText.setText(currentText)
         }
     }
 
@@ -102,7 +97,7 @@ class CreateFragment : BaseFragment() {
     }
 
     override fun onPause() {
-        viewModel.setText(binding.inputText.text().orEmpty())
+        currentText = binding.inputText.text()
         super.onPause()
     }
 

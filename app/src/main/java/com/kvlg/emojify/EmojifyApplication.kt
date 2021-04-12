@@ -15,4 +15,10 @@ class EmojifyApplication : Application() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        currentPage = 0
+        currentText = null
+    }
 }

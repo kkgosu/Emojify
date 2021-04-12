@@ -7,3 +7,7 @@ import android.graphics.Bitmap
  * @since 02.04.2021
  */
 var globalBitmap: Bitmap? = null
+
+var currentText: String? = null
+
+var currentPage: Int = 0

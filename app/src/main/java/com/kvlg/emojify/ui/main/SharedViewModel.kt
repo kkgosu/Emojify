@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.kvlg.emojify.domain.CurrentStateInteractor
 import com.kvlg.emojify.domain.EmojiInteractor
 import com.kvlg.emojify.domain.ResourceManager
 import com.kvlg.emojify.domain.Result
@@ -16,7 +15,6 @@ import com.kvlg.emojify.model.EmojiItem
 import com.kvlg.emojify.model.EmojiItem2
 import com.kvlg.emojify.model.EmojifyedText
 import com.kvlg.emojify.model.Emojis
-import com.kvlg.emojify.model.State
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -32,7 +30,6 @@ class SharedViewModel @ViewModelInject constructor(
     resourceManager: ResourceManager,
     private val interactor: EmojiInteractor,
     private val preferences: SharedPreferences,
-    private val stateInteractor: CurrentStateInteractor
 ) : ViewModel() {
 
     private val emojiMap = mutableMapOf<String, EmojiItem>()
@@ -41,9 +38,6 @@ class SharedViewModel @ViewModelInject constructor(
     private val _loading = MutableLiveData<Boolean>()
     private val _scrollToTop = MutableLiveData<Boolean>()
     private val _showInAppReview = MutableLiveData<Boolean>()
-
-    private var page: Int = 0
-    private var text: String = ""
 
     init {
         val gson = Gson()
@@ -60,7 +54,6 @@ class SharedViewModel @ViewModelInject constructor(
         checkForInAppReview()
     }
 
-    val state: LiveData<Result<State>> = stateInteractor.getCurrentState()
     val history: LiveData<Result<List<EmojifyedText>>> = interactor.getAllTexts()
     val emojiText: LiveData<String> = _emojiText
     val loading: LiveData<Boolean> = _loading
@@ -81,24 +74,6 @@ class SharedViewModel @ViewModelInject constructor(
 
     fun setScrollToTop(value: Boolean) {
         _scrollToTop.value = value
-    }
-
-    fun saveState() {
-        viewModelScope.launch {
-            stateInteractor.saveCurrentState(page, text)
-        }
-    }
-
-    fun setPage(page: Int) {
-        this.page = page
-    }
-
-    fun setText(text: String) {
-        this.text = text
-    }
-
-    fun resetState() {
-        stateInteractor.resetState()
     }
 
     private suspend fun saveText(text: String) {

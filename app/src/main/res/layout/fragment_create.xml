@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="?attr/editTextBackground"
-    tools:context=".ui.main.PlaceholderFragment">
+    android:background="?attr/editTextBackground">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/input_text"
@@ -23,23 +21,18 @@
         android:id="@+id/button_panel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="?attr/colorPrimaryVariant"
+        android:background="?attr/background1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/input_text" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/create_button"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MainTextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:maxLines="1"
         android:text="@string/emojify"
-        android:textColor="@color/white"
-        android:textStyle="bold"
         app:icon="@drawable/ic_emoji_24"
-        app:iconGravity="top"
-        app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="@id/button_panel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/copy_button"
@@ -47,12 +40,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/copy_button"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/SimpleTextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/copy_button"
         app:icon="@drawable/ic_copy_24"
-        app:iconGravity="top"
         app:layout_constraintBottom_toBottomOf="@id/button_panel"
         app:layout_constraintEnd_toStartOf="@id/create_button"
         app:layout_constraintStart_toEndOf="@id/clear_button"
@@ -60,12 +52,11 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/clear_button"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/SimpleTextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/clear"
         app:icon="@drawable/ic_clear_24"
-        app:iconGravity="top"
         app:layout_constraintBottom_toBottomOf="@id/button_panel"
         app:layout_constraintEnd_toStartOf="@id/copy_button"
         app:layout_constraintStart_toEndOf="@id/share_button"
@@ -73,13 +64,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/share_button"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/SimpleTextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/share"
         app:icon="@drawable/ic_share_24"
-        app:iconGravity="top"
         app:layout_constraintBottom_toBottomOf="@id/button_panel"
         app:layout_constraintEnd_toStartOf="@id/clear_button"
         app:layout_constraintStart_toStartOf="parent"

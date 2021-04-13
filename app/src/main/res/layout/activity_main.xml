@@ -5,7 +5,7 @@
     android:id="@+id/root_constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorPrimaryVariant"
+    android:background="?attr/background1"
     android:fitsSystemWindows="false"
     tools:context=".MainActivity">
 
@@ -19,7 +19,7 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorPrimaryVariant"
+        android:background="?attr/background1"
         android:minHeight="?actionBarSize">
 
         <TextView
@@ -31,7 +31,7 @@
             android:padding="@dimen/appbar_padding"
             android:text="@string/app_name"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
-            android:textColor="@color/purple_500"
+            android:textColor="?attr/textColorBrand"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,17 +44,19 @@
             android:src="@drawable/ic_nights_stay_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/title"
-            app:tint="?attr/colorPrimary" />
+            app:tint="?attr/iconTintBrand" />
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimaryVariant"
+            android:background="?attr/background1"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:tabGravity="center"
-            app:tabIndicatorColor="@color/purple_500"
-            app:tabMode="fixed">
+            app:tabIconTint="@color/tab_icon_color"
+            app:tabIndicatorColor="?attr/colorAccent"
+            app:tabMode="fixed"
+            app:tabTextColor="@color/tab_text_color">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -74,7 +76,7 @@
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="?attr/colorPrimaryVariant"
+            android:background="?attr/background1"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tabs" />

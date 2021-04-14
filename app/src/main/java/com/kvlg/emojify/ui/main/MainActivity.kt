@@ -1,4 +1,4 @@
-package com.kvlg.emojify
+package com.kvlg.emojify.ui.main
 
 import android.content.Context
 import android.content.Intent
@@ -16,9 +16,11 @@ import androidx.core.graphics.createBitmap
 import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import com.google.android.material.tabs.TabLayout
+import com.kvlg.emojify.R
+import com.kvlg.emojify.currentPage
 import com.kvlg.emojify.databinding.ActivityMainBinding
-import com.kvlg.emojify.ui.main.SectionsPagerAdapter
-import com.kvlg.emojify.ui.main.SharedViewModel
+import com.kvlg.emojify.globalBitmap
+import com.kvlg.emojify.ui.SectionsPagerAdapter
 import com.kvlg.emojify.utils.updateForTheme
 import com.kvlg.fluidlayout.FluidContentResizer
 import dagger.hilt.android.AndroidEntryPoint

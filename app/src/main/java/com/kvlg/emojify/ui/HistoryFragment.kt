@@ -1,4 +1,4 @@
-package com.kvlg.emojify.ui.main
+package com.kvlg.emojify.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import androidx.fragment.app.activityViewModels
 import com.kvlg.emojify.databinding.FragmentHistoryBinding
 import com.kvlg.emojify.domain.Result
 import com.kvlg.emojify.model.EmojifyedText
+import com.kvlg.emojify.ui.main.BaseFragment
+import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.emojify.utils.copyToClipboard
 import com.kvlg.emojify.utils.hideAnimation
 import com.kvlg.emojify.utils.showAnimation

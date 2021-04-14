@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="?attr/background1"
     android:fitsSystemWindows="false"
-    tools:context=".MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <ImageView
         android:id="@+id/hidden_image_view"

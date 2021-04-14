@@ -1,4 +1,4 @@
-package com.kvlg.emojify.ui.main
+package com.kvlg.emojify.ui
 
 import android.content.Context
 import androidx.fragment.app.Fragment

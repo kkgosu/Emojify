@@ -1,4 +1,4 @@
-package com.kvlg.emojify
+package com.kvlg.emojify.ui.main
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel

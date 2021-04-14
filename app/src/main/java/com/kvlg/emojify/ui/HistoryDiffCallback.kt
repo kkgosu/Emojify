@@ -1,4 +1,4 @@
-package com.kvlg.emojify.ui.main
+package com.kvlg.emojify.ui
 
 import androidx.recyclerview.widget.DiffUtil
 import com.kvlg.emojify.model.EmojifyedText

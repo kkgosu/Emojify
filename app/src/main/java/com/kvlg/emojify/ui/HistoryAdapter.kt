@@ -1,6 +1,5 @@
-package com.kvlg.emojify.ui.main
+package com.kvlg.emojify.ui
 
-import android.util.Log
 import com.hannesdorfmann.adapterdelegates4.AsyncListDifferDelegationAdapter
 import com.hannesdorfmann.adapterdelegates4.dsl.adapterDelegateViewBinding
 import com.kvlg.emojify.databinding.HistoryItemBinding

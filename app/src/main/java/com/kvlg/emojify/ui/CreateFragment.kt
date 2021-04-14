@@ -1,4 +1,4 @@
-package com.kvlg.emojify.ui.main
+package com.kvlg.emojify.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,8 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.kvlg.emojify.currentText
 import com.kvlg.emojify.databinding.FragmentCreateBinding
+import com.kvlg.emojify.ui.main.BaseFragment
+import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.emojify.utils.copyToClipboard
 import com.kvlg.emojify.utils.hideAnimation
 import com.kvlg.emojify.utils.hideKeyboard

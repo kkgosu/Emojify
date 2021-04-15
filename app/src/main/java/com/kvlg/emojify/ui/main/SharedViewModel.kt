@@ -63,6 +63,7 @@ class SharedViewModel @ViewModelInject constructor(
     val showInAppReview: LiveData<Boolean> = _showInAppReview
 
     fun emojifyText(input: String) {
+        analyticsInteractor.onEmojifyClick()
         viewModelScope.launch {
             _loading.value = true
             val result = modifyText(input)
@@ -72,6 +73,30 @@ class SharedViewModel @ViewModelInject constructor(
                 saveText(result)
             }
         }
+    }
+
+    fun onCreateTabOpen() {
+        analyticsInteractor.onCreateTabOpen()
+    }
+
+    fun onHistoryTabOpen() {
+        analyticsInteractor.onHistoryTabOpen()
+    }
+
+    fun onThemeChange() {
+        analyticsInteractor.onThemeChange()
+    }
+
+    fun onShareClick() {
+        analyticsInteractor.onShareClick()
+    }
+
+    fun onCopyClick() {
+        analyticsInteractor.onCopyClick()
+    }
+
+    fun onClearClick() {
+        analyticsInteractor.onClearClick()
     }
 
     fun setScrollToTop(value: Boolean) {

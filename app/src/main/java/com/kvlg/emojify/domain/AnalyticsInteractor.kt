@@ -11,31 +11,31 @@ class AnalyticsInteractor(
 ) {
 
     fun onCreateTabOpen() {
-
+        analyticsRepository.onCreateTabOpen()
     }
 
     fun onHistoryTabOpen() {
-
+        analyticsRepository.onHistoryTabOpen()
     }
 
     fun onThemeChange() {
-
+        analyticsRepository.onThemeChange()
     }
 
     fun onShareClick() {
-
+        analyticsRepository.onShareClick()
     }
 
     fun onCopyClick() {
-
+        analyticsRepository.onCopyClick()
     }
 
     fun onClearClick() {
-
+        analyticsRepository.onClearClick()
     }
 
     fun onEmojifyClick() {
-
+        analyticsRepository.onEmojifyClick()
     }
 
     fun reportEvent(value: String) {

@@ -82,6 +82,10 @@ class MainActivity : AppCompatActivity() {
             tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     currentPage = tab?.position ?: 0
+                    when (currentPage) {
+                        0 -> sharedViewModel.onCreateTabOpen()
+                        1 -> sharedViewModel.onHistoryTabOpen()
+                    }
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab?) {}
@@ -90,7 +94,10 @@ class MainActivity : AppCompatActivity() {
                     sharedViewModel.setScrollToTop(true)
                 }
             })
-            changeThemeButton.setOnClickListener(this@MainActivity::presentActivity)
+            changeThemeButton.setOnClickListener {
+                sharedViewModel.onThemeChange()
+                presentActivity(it)
+            }
         }
         binding.tabs.getTabAt(currentPage)?.select()
     }

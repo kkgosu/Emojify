@@ -68,11 +68,14 @@ class CreateFragment : BaseFragment() {
             }
             copyButton.setOnClickListener {
                 copyToClipboard(inputText.text())
+                viewModel.onCopyClick()
             }
             clearButton.setOnClickListener {
                 inputText.text?.clear()
+                viewModel.onClearClick()
             }
             shareButton.setOnClickListener {
+                viewModel.onShareClick()
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "text/plain"
                 intent.putExtra(Intent.EXTRA_TEXT, binding.inputText.text())

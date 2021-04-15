@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
+import com.kvlg.emojify.domain.AnalyticsInteractor
 import com.kvlg.emojify.domain.EmojiInteractor
 import com.kvlg.emojify.domain.ResourceManager
 import com.kvlg.emojify.domain.Result
@@ -30,6 +31,7 @@ class SharedViewModel @ViewModelInject constructor(
     resourceManager: ResourceManager,
     private val interactor: EmojiInteractor,
     private val preferences: SharedPreferences,
+    private val analyticsInteractor: AnalyticsInteractor
 ) : ViewModel() {
 
     private val emojiMap = mutableMapOf<String, EmojiItem>()

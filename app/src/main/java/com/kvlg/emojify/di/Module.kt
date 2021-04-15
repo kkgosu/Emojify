@@ -3,6 +3,8 @@ package com.kvlg.emojify.di
 import android.content.Context
 import androidx.preference.PreferenceManager
 import androidx.room.Room
+import com.kvlg.emojify.data.AnalyticsRepository
+import com.kvlg.emojify.data.AnalyticsRepositoryImpl
 import com.kvlg.emojify.data.db.history.HistoryTextDatabase
 import com.kvlg.emojify.domain.AppSettings
 import com.kvlg.emojify.domain.EmojiInteractor
@@ -43,4 +45,10 @@ object Module {
 
     @Provides
     fun provideAppSettings(@ApplicationContext context: Context) = AppSettings(context)
+
+    @Provides
+    @Singleton
+    fun provideAnalyticsRepository(): AnalyticsRepository {
+        return AnalyticsRepositoryImpl()
+    }
 }

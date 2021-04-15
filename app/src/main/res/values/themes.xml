@@ -39,6 +39,7 @@
         <item name="background1">@color/gray_900</item>
         <item name="background2">@color/gray_800</item>
         <item name="textColor">@color/white</item>
+        <item name="textColorBrand">@color/purple_a200</item>
 
         <item name="tabActiveColor">@color/white</item>
         <item name="tabInactiveColor">@color/gray_500</item>

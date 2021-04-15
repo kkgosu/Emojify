@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     kotlin("android")
@@ -51,6 +53,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")*/
             versionNameSuffix = "-debug"
         }
+
+        configureEach {
+            val appMetricaApiKey = gradleLocalProperties(rootDir).getProperty("app_metrica_api_key")
+            buildConfigField("String", "APP_METRICA_API_KEY", appMetricaApiKey)
+        }
     }
 
     compileOptions {
@@ -71,6 +78,7 @@ dependencies {
     implementation(Libs.ADAPTER_DELEGATES)
     implementation(Libs.ADAPTER_DELEGATES_VIEW_BINDING)
     implementation(Libs.APPCOMPAT)
+    implementation(Libs.APP_METRICA)
     implementation(Libs.CONSTRAINT_LAYOUT)
     implementation(Libs.CORE_KTX)
     implementation(Libs.COROUTINES)

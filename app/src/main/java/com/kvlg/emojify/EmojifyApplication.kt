@@ -2,6 +2,8 @@ package com.kvlg.emojify
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import com.yandex.metrica.YandexMetrica
+import com.yandex.metrica.YandexMetricaConfig
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -14,6 +16,10 @@ class EmojifyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+        val config = YandexMetricaConfig.newConfigBuilder(BuildConfig.APP_METRICA_API_KEY).build()
+        YandexMetrica.activate(this, config)
+        YandexMetrica.enableActivityAutoTracking(this)
     }
 
     override fun onTerminate() {

@@ -23,6 +23,7 @@ import com.kvlg.emojify.globalBitmap
 import com.kvlg.emojify.ui.SectionsPagerAdapter
 import com.kvlg.emojify.utils.updateForTheme
 import com.kvlg.fluidlayout.FluidContentResizer
+import com.yandex.metrica.YandexMetrica
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.max
 
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        YandexMetrica.resumeSession(this)
         updateForTheme(mainViewModel.getCurrentTheme())
 
         FluidContentResizer.listen(this)
@@ -100,6 +102,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.tabs.getTabAt(currentPage)?.select()
+    }
+
+    override fun onDestroy() {
+        YandexMetrica.pauseSession(this)
+        super.onDestroy()
     }
 
     private fun presentActivity(view: View) {

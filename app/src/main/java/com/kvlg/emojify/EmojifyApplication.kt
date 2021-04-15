@@ -17,7 +17,10 @@ class EmojifyApplication : Application() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
-        val config = YandexMetricaConfig.newConfigBuilder(BuildConfig.APP_METRICA_API_KEY).build()
+        val config = YandexMetricaConfig.newConfigBuilder(BuildConfig.APP_METRICA_API_KEY)
+            .withLogs()
+            .withStatisticsSending(true)
+            .build()
         YandexMetrica.activate(this, config)
         YandexMetrica.enableActivityAutoTracking(this)
     }

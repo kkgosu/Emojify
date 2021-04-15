@@ -29,6 +29,7 @@ class AnalyticsRepositoryImpl : AnalyticsRepository {
 
     override fun onEmojifyClick() {
         YandexMetrica.reportEvent(EMOJIFY_CLICKED)
+        YandexMetrica.sendEventsBuffer()
     }
 
     override fun reportEvent(value: String) {

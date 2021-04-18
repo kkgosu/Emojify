@@ -41,15 +41,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         YandexMetrica.resumeSession(this)
-        updateForTheme(mainViewModel.getCurrentTheme())
-
         FluidContentResizer.listen(this)
+        updateForTheme(mainViewModel.getCurrentTheme())
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.container.updatePadding(0, getStatusBarHeight(), 0, 0)
-        binding.hiddenImageView.apply {
+        binding.hiddenImageView.run {
             setImageBitmap(globalBitmap)
             scaleType = ImageView.ScaleType.MATRIX
         }
@@ -59,7 +58,6 @@ class MainActivity : AppCompatActivity() {
             revealY = getIntExtra(REVEAL_Y, 0)
             if (revealX != 0 && revealY != 0) {
                 binding.hiddenImageView.isVisible = true
-
                 val viewTreeObserver = binding.hiddenImageView.viewTreeObserver
                 if (viewTreeObserver.isAlive) {
                     viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -96,12 +94,12 @@ class MainActivity : AppCompatActivity() {
                     sharedViewModel.setScrollToTop(true)
                 }
             })
+            tabs.getTabAt(currentPage)?.select()
             changeThemeButton.setOnClickListener {
                 sharedViewModel.onThemeChange()
                 presentActivity(it)
             }
         }
-        binding.tabs.getTabAt(currentPage)?.select()
     }
 
     override fun onDestroy() {

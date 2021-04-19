@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Emojifyer</string>
     <string name="tab_text_1" translatable="false">Create</string>
     <string name="tab_text_2" translatable="false">History</string>
     <string name="enter_text_here" translatable="false">Enter text here</string>

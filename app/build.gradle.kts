@@ -38,7 +38,6 @@ android {
         }
     }
 
-
     buildFeatures {
         viewBinding = true
     }
@@ -49,8 +48,6 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         getByName("debug") {
-/*            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")*/
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
         }
@@ -59,6 +56,7 @@ android {
             val appMetricaApiKey = gradleLocalProperties(rootDir).getProperty("app_metrica_api_key")
             buildConfigField("String", "APP_METRICA_API_KEY", appMetricaApiKey)
         }
+
     }
 
     compileOptions {

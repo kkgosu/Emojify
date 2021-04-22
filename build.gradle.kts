@@ -1,3 +1,6 @@
+import com.android.build.gradle.LibraryExtension
+import com.android.build.gradle.TestedExtension
+import com.android.build.gradle.internal.dsl.BuildType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.konan.properties.Properties
 
@@ -24,7 +27,57 @@ allprojects {
     }
 }
 
+// Set build types for android module.
+fun TestedExtension.configureBuildTypes() {
+
+    fun BuildType.configProguard(isLibrary: Boolean): BuildType {
+        return if (isLibrary) {
+            consumerProguardFile(file("proguard-rules.pro"))
+        } else {
+            proguardFiles(
+                file("proguard-rules.pro"),
+                getDefaultProguardFile("proguard-android-optimize.txt")
+            )
+        }
+    }
+
+    val isLibrary = this is LibraryExtension
+
+    buildTypes {
+        maybeCreate(AppConfig.BuildTypes.RELEASE.name).apply {
+            isMinifyEnabled = true
+            isDebuggable = false
+            configProguard(isLibrary)
+        }
+        maybeCreate(AppConfig.BuildTypes.DEBUG.name).apply {
+            isMinifyEnabled = true
+            isDebuggable = false
+            configProguard(isLibrary)
+        }
+        maybeCreate(AppConfig.BuildTypes.DEV.name).apply {
+            isDebuggable = true
+        }
+    }
+}
+
 subprojects {
+    afterEvaluate {
+        extensions
+            .findByType(TestedExtension::class.java)
+            ?.apply {
+                configureBuildTypes()
+
+                sourceSets.forEach { sourceSet ->
+                    sourceSet.java.srcDir("src/${sourceSet.name}/kotlin")
+                }
+
+                with(compileOptions) {
+                    sourceCompatibility = JavaVersion.VERSION_1_8
+                    targetCompatibility = JavaVersion.VERSION_1_8
+                }
+            }
+    }
+
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions.freeCompilerArgs +=
             "-Xuse-experimental=" +

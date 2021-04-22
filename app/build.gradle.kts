@@ -1,4 +1,5 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import org.apache.commons.io.output.ByteArrayOutputStream
 
 plugins {
     id("com.android.application")
@@ -20,21 +21,25 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    bundle {
-        language {
-            // Specifies that the app bundle should not support
-            // configuration APKs for language resources. These
-            // resources are instead packaged with each base and
-            // feature APK.
-            enableSplit = false
+    signingConfigs {
+        getByName(AppConfig.BuildTypes.DEBUG.name) {
+            keyPassword = "android"
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            storeFile = File(projectDir, "debug.keystore")
         }
-        density {
-            // This property is set to true by default.
-            enableSplit = true
+    }
+
+    buildTypes {
+        maybeCreate(AppConfig.BuildTypes.DEBUG.name).apply {
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "+${getLastCommitHash()}"
+            signingConfig = signingConfigs.getByName(AppConfig.BuildTypes.DEBUG.name)
         }
-        abi {
-            // This property is set to true by default.
-            enableSplit = true
+        maybeCreate(AppConfig.BuildTypes.DEV.name).apply {
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "+${getLastCommitHash()}"
+            signingConfig = signingConfigs.getByName(AppConfig.BuildTypes.DEBUG.name)
         }
     }
 
@@ -48,6 +53,8 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         getByName("debug") {
+            isDebuggable = true
+            isMinifyEnabled = false
             applicationIdSuffix = ".debug"
             versionNameSuffix = "-debug"
         }
@@ -56,12 +63,6 @@ android {
             val appMetricaApiKey = gradleLocalProperties(rootDir).getProperty("app_metrica_api_key")
             buildConfigField("String", "APP_METRICA_API_KEY", appMetricaApiKey)
         }
-
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -99,4 +100,14 @@ dependencies {
     kapt(Libs.ANDROIDX_HILT_COMPILER)
     kapt(Libs.HILT_COMPILER)
     kapt(Libs.ROOM_COMPILER)
+}
+
+fun getLastCommitHash(): String {
+    val stdout = ByteArrayOutputStream()
+    exec {
+        commandLine("git", "rev-parse", "--short", "HEAD")
+        standardOutput = stdout
+    }
+    @Suppress("DEPRECATION")
+    return stdout.toString().trim()
 }

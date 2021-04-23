@@ -33,11 +33,6 @@ subprojects {
             .findByType(TestedExtension::class.java)
             ?.apply {
                 configureBuildTypes()
-
-                sourceSets.forEach { sourceSet ->
-                    sourceSet.java.srcDir("src/${sourceSet.name}/java")
-                }
-
                 with(compileOptions) {
                     sourceCompatibility = JavaVersion.VERSION_1_8
                     targetCompatibility = JavaVersion.VERSION_1_8
@@ -63,8 +58,8 @@ fun TestedExtension.configureBuildTypes() {
             consumerProguardFile(file("proguard-rules.pro"))
         } else {
             proguardFiles(
-                file("proguard-rules.pro"),
-                getDefaultProguardFile("proguard-android-optimize.txt")
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
             )
         }
     }

@@ -21,15 +21,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    signingConfigs {
-        getByName(AppConfig.BuildTypes.DEBUG.name) {
-            keyPassword = "android"
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            storeFile = File(projectDir, "debug.keystore")
-        }
-    }
-
     buildTypes {
         maybeCreate(AppConfig.BuildTypes.DEBUG.name).apply {
             applicationIdSuffix = ".debug"
@@ -41,28 +32,15 @@ android {
             versionNameSuffix = "+${getLastCommitHash()}"
             signingConfig = signingConfigs.getByName(AppConfig.BuildTypes.DEBUG.name)
         }
-    }
-
-    buildFeatures {
-        viewBinding = true
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
-        }
-        getByName("debug") {
-            isDebuggable = true
-            isMinifyEnabled = false
-            applicationIdSuffix = ".debug"
-            versionNameSuffix = "-debug"
-        }
 
         configureEach {
             val appMetricaApiKey = gradleLocalProperties(rootDir).getProperty("app_metrica_api_key")
             buildConfigField("String", "APP_METRICA_API_KEY", appMetricaApiKey)
         }
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     kotlinOptions {

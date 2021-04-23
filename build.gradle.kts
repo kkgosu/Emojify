@@ -27,6 +27,34 @@ allprojects {
     }
 }
 
+subprojects {
+    afterEvaluate {
+        extensions
+            .findByType(TestedExtension::class.java)
+            ?.apply {
+                configureBuildTypes()
+
+                sourceSets.forEach { sourceSet ->
+                    sourceSet.java.srcDir("src/${sourceSet.name}/java")
+                }
+
+                with(compileOptions) {
+                    sourceCompatibility = JavaVersion.VERSION_1_8
+                    targetCompatibility = JavaVersion.VERSION_1_8
+                }
+            }
+    }
+
+    tasks.withType<KotlinCompile>().configureEach {
+        kotlinOptions.freeCompilerArgs +=
+            "-Xuse-experimental=" +
+                    "kotlin.Experimental," +
+                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
+                    "kotlinx.coroutines.InternalCoroutinesApi," +
+                    "kotlinx.coroutines.FlowPreview"
+    }
+}
+
 // Set build types for android module.
 fun TestedExtension.configureBuildTypes() {
 
@@ -50,41 +78,13 @@ fun TestedExtension.configureBuildTypes() {
             configProguard(isLibrary)
         }
         maybeCreate(AppConfig.BuildTypes.DEBUG.name).apply {
-            isMinifyEnabled = true
-            isDebuggable = false
+            isMinifyEnabled = false
+            isDebuggable = true
             configProguard(isLibrary)
         }
         maybeCreate(AppConfig.BuildTypes.DEV.name).apply {
             isDebuggable = true
         }
-    }
-}
-
-subprojects {
-    afterEvaluate {
-        extensions
-            .findByType(TestedExtension::class.java)
-            ?.apply {
-                configureBuildTypes()
-
-                sourceSets.forEach { sourceSet ->
-                    sourceSet.java.srcDir("src/${sourceSet.name}/kotlin")
-                }
-
-                with(compileOptions) {
-                    sourceCompatibility = JavaVersion.VERSION_1_8
-                    targetCompatibility = JavaVersion.VERSION_1_8
-                }
-            }
-    }
-
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs +=
-            "-Xuse-experimental=" +
-                    "kotlin.Experimental," +
-                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                    "kotlinx.coroutines.InternalCoroutinesApi," +
-                    "kotlinx.coroutines.FlowPreview"
     }
 }
 

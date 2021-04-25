@@ -7,6 +7,8 @@
         <item name="colorAccent">@color/purple_500</item>
         <!-- Window decor -->
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="editTextBackground">@color/gray_100</item>
         <item name="android:fontFamily">@font/futurabook</item>
         <item name="fontFamily">@font/futurabook</item>

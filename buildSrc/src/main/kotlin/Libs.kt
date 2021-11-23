@@ -7,7 +7,7 @@ object Libs {
     const val APP_METRICA = "com.yandex.android:mobmetricalib:4.0.0"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val CORE_KTX = "androidx.core:core-ktx:1.3.2"
-    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"
     const val GSON = "com.google.code.gson:gson:2.8.6"
     const val HILT_ANDROID = "com.google.dagger:hilt-android:2.28-alpha"

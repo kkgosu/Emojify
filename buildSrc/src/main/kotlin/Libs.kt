@@ -2,7 +2,7 @@ object Libs {
     const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-beta01"
     const val ADAPTER_DELEGATES = "com.hannesdorfmann:adapterdelegates4:4.3.0"
     const val ADAPTER_DELEGATES_VIEW_BINDING = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0"
-    const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:1.0.0-alpha02"
+    const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:1.0.0"
     const val APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
     const val APP_METRICA = "com.yandex.android:mobmetricalib:4.0.0"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"

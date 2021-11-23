@@ -7,7 +7,7 @@ object Libs {
     const val APP_METRICA = "com.yandex.android:mobmetricalib:3.18.0"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
     const val CORE_KTX = "androidx.core:core-ktx:1.3.2"
-    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
+    const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
     const val FRAGMENT_KTX = "androidx.fragment:fragment-ktx:1.3.0-beta01"
     const val GSON = "com.google.code.gson:gson:2.8.6"
     const val HILT_ANDROID = "com.google.dagger:hilt-android:2.28-alpha"
@@ -24,4 +24,22 @@ object Libs {
     const val ROOM_COMMON = "androidx.room:room-common:2.2.6"
     const val ROOM_KTX = "androidx.room:room-ktx:2.2.6"
     const val ROOM_RUNTIME = "androidx.room:room-runtime:2.2.6"
+
+    object Compose {
+        const val snapshot = ""
+        const val version = "1.0.0-beta09"
+
+        const val foundation = "androidx.compose.foundation:foundation:${version}"
+        const val layout = "androidx.compose.foundation:foundation-layout:${version}"
+        const val ui = "androidx.compose.ui:ui:${version}"
+        const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
+        const val uiUtil = "androidx.compose.ui:ui-util:${version}"
+        const val runtime = "androidx.compose.runtime:runtime:${version}"
+        const val material = "androidx.compose.material:material:${version}"
+        const val iconsCore = "androidx.compose.material:material-icons-core:$version"
+        const val iconsExtended = "androidx.compose.material:material-icons-extended:$version"
+        const val animation = "androidx.compose.animation:animation:${version}"
+        const val tooling = "androidx.compose.ui:ui-tooling:${version}"
+        const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
+    }
 }

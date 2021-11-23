@@ -2,7 +2,7 @@ object Libs {
     const val ACTIVITY_KTX = "androidx.activity:activity-ktx:1.2.0-beta01"
     const val ADAPTER_DELEGATES = "com.hannesdorfmann:adapterdelegates4:4.3.0"
     const val ADAPTER_DELEGATES_VIEW_BINDING = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:4.3.0"
-    const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:1.0.0-alpha02"
+    const val ANDROIDX_HILT_COMPILER = "androidx.hilt:hilt-compiler:1.0.0"
     const val APPCOMPAT = "androidx.appcompat:appcompat:1.2.0"
     const val APP_METRICA = "com.yandex.android:mobmetricalib:3.18.0"
     const val CONSTRAINT_LAYOUT = "androidx.constraintlayout:constraintlayout:2.0.4"
@@ -24,4 +24,22 @@ object Libs {
     const val ROOM_COMMON = "androidx.room:room-common:2.2.6"
     const val ROOM_KTX = "androidx.room:room-ktx:2.2.6"
     const val ROOM_RUNTIME = "androidx.room:room-runtime:2.2.6"
+
+    object Compose {
+        const val snapshot = ""
+        const val version = "1.0.0-beta09"
+
+        const val foundation = "androidx.compose.foundation:foundation:${version}"
+        const val layout = "androidx.compose.foundation:foundation-layout:${version}"
+        const val ui = "androidx.compose.ui:ui:${version}"
+        const val livedata = "androidx.compose.runtime:runtime-livedata:$version"
+        const val uiUtil = "androidx.compose.ui:ui-util:${version}"
+        const val runtime = "androidx.compose.runtime:runtime:${version}"
+        const val material = "androidx.compose.material:material:${version}"
+        const val iconsCore = "androidx.compose.material:material-icons-core:$version"
+        const val iconsExtended = "androidx.compose.material:material-icons-extended:$version"
+        const val animation = "androidx.compose.animation:animation:${version}"
+        const val tooling = "androidx.compose.ui:ui-tooling:${version}"
+        const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
+    }
 }

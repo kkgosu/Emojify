@@ -20,10 +20,10 @@ object Libs {
     const val MATERIAL = "com.google.android.material:material:1.4.0"
     const val PLAY_CORE_KTX = "com.google.android.play:core-ktx:1.8.1"
     const val PREFERENCES = "androidx.preference:preference-ktx:1.1.1"
-    const val ROOM_COMPILER = "androidx.room:room-compiler:2.2.6"
-    const val ROOM_COMMON = "androidx.room:room-common:2.2.6"
-    const val ROOM_KTX = "androidx.room:room-ktx:2.2.6"
-    const val ROOM_RUNTIME = "androidx.room:room-runtime:2.2.6"
+    const val ROOM_COMPILER = "androidx.room:room-compiler:2.3.0"
+    const val ROOM_COMMON = "androidx.room:room-common:2.3.0"
+    const val ROOM_KTX = "androidx.room:room-ktx:2.3.0"
+    const val ROOM_RUNTIME = "androidx.room:room-runtime:2.3.0"
 
     object Compose {
         const val snapshot = ""

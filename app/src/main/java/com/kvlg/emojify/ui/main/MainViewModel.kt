@@ -1,14 +1,16 @@
 package com.kvlg.emojify.ui.main
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.kvlg.emojify.domain.AppSettings
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * @author Konstantin Koval
  * @since 06.04.2021
  */
-class MainViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     private val appSettings: AppSettings
 ) : ViewModel() {
 

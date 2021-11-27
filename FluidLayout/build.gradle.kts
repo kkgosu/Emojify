@@ -3,29 +3,21 @@ plugins {
     kotlin("android")
 }
 android {
-    compileSdkVersion(BuildLibs.COMPILE_SDK)
+    compileSdk = BuildLibs.COMPILE_SDK
 
     defaultConfig {
-        minSdkVersion(BuildLibs.MIN_SDK)
-        targetSdkVersion(BuildLibs.TARGET_SDK)
-        versionCode = BuildLibs.versionCodeMobile
-        versionName = BuildLibs.versionName
+        minSdk = BuildLibs.MIN_SDK
+        targetSdk = BuildLibs.TARGET_SDK
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments["room.incremental"] = "true"
-            }
-        }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        this.jvmTarget = "1.8"
+        this.jvmTarget = "11"
     }
 }
 

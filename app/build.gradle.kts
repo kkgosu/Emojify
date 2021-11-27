@@ -9,15 +9,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(BuildLibs.COMPILE_SDK)
+    compileSdk = BuildLibs.COMPILE_SDK
 
     defaultConfig {
         applicationId = "com.kvlg.emojify"
-        minSdkVersion(BuildLibs.MIN_SDK)
-        targetSdkVersion(BuildLibs.TARGET_SDK)
-        compileSdkVersion(BuildLibs.COMPILE_SDK)
+        minSdk = BuildLibs.MIN_SDK
+        targetSdk = BuildLibs.TARGET_SDK
+        compileSdk = BuildLibs.COMPILE_SDK
         versionCode = BuildLibs.versionCodeMobile
-        versionName = BuildLibs.versionName
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -41,10 +40,17 @@ android {
 
     buildFeatures {
         viewBinding = true
+        compose = true
     }
-
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
     kotlinOptions {
-        this.jvmTarget = "1.8"
+        this.jvmTarget = "11"
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = Libs.Compose.compose_version
     }
 }
 
@@ -63,9 +69,9 @@ dependencies {
     implementation(Libs.FRAGMENT_KTX)
     implementation(Libs.GSON)
     implementation(Libs.HILT_ANDROID)
-    implementation(Libs.HILT_VIEWMODEL)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)
+    implementation(Libs.LIFECYCLE_RUNTIME)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.LOTTIE)
     implementation(Libs.MATERIAL)
@@ -75,7 +81,13 @@ dependencies {
     implementation(Libs.ROOM_RUNTIME)
     implementation(Libs.ROOM_COMMON)
 
-    kapt(Libs.ANDROIDX_HILT_COMPILER)
+    implementation(Libs.Compose.ACTIVITY)
+    implementation(Libs.Compose.COIL)
+    implementation(Libs.Compose.MATERIAL)
+    implementation(Libs.Compose.UI)
+    implementation(Libs.Compose.TOOLING)
+    implementation(Libs.Compose.TOOLING_PREVIEW)
+
     kapt(Libs.HILT_COMPILER)
     kapt(Libs.ROOM_COMPILER)
 }

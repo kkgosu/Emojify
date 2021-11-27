@@ -12,6 +12,7 @@
         android:theme="@style/Theme.Emojify">
         <activity
             android:name=".ui.main.MainActivity"
+            android:exported="true"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Emojify"

@@ -1,17 +1,16 @@
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.TestedExtension
 import com.android.build.gradle.internal.dsl.BuildType
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
-    id(BuildLibs.RELEASE_HUB_PLUGIN) version "2.0.1"
+    id(BuildLibs.RELEASE_HUB_PLUGIN) version "3.1.0"
 }
 
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath(BuildLibs.GRADLE_PLUGIN)
@@ -23,7 +22,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 }
 
@@ -34,19 +33,10 @@ subprojects {
             ?.apply {
                 configureBuildTypes()
                 with(compileOptions) {
-                    sourceCompatibility = JavaVersion.VERSION_1_8
-                    targetCompatibility = JavaVersion.VERSION_1_8
+                    sourceCompatibility = JavaVersion.VERSION_11
+                    targetCompatibility = JavaVersion.VERSION_11
                 }
             }
-    }
-
-    tasks.withType<KotlinCompile>().configureEach {
-        kotlinOptions.freeCompilerArgs +=
-            "-Xuse-experimental=" +
-                    "kotlin.Experimental," +
-                    "kotlinx.coroutines.ExperimentalCoroutinesApi," +
-                    "kotlinx.coroutines.InternalCoroutinesApi," +
-                    "kotlinx.coroutines.FlowPreview"
     }
 }
 
@@ -84,8 +74,7 @@ fun TestedExtension.configureBuildTypes() {
 }
 
 releasesHub {
-    dependenciesBasePath = "buildSrc/src/main/kotlin/"
-    dependenciesClassNames = listOf("Libs.kt", "BuildLibs.kt")
+    dependenciesPaths = listOf("buildSrc/src/main/kotlin/Libs.kt", "buildSrc/src/main/kotlin/BuildLibs.kt")
     excludes = listOf("gradle")
 
     pullRequestEnabled = true

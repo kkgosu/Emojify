@@ -2,7 +2,6 @@ package com.kvlg.emojify.ui.main
 
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,18 +15,21 @@ import com.kvlg.emojify.model.EmojiItem
 import com.kvlg.emojify.model.EmojiItem2
 import com.kvlg.emojify.model.EmojifyedText
 import com.kvlg.emojify.model.Emojis
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.set
 
 /**
  * @author Konstantin Koval
  * @since 11.11.2020
  */
-class SharedViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SharedViewModel @Inject constructor(
     resourceManager: ResourceManager,
     private val interactor: EmojiInteractor,
     private val preferences: SharedPreferences,

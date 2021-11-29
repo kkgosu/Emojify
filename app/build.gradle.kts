@@ -83,6 +83,7 @@ dependencies {
 
     implementation(Libs.Compose.ACTIVITY)
     implementation(Libs.Compose.COIL)
+    implementation(Libs.Compose.ICONS_EXTENDED)
     implementation(Libs.Compose.MATERIAL)
     implementation(Libs.Compose.UI)
     implementation(Libs.Compose.TOOLING)

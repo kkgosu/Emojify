@@ -74,6 +74,7 @@ dependencies {
     implementation(Libs.LIFECYCLE_RUNTIME)
     implementation(Libs.LIFECYCLE_VIEW_MODEL_KTX)
     implementation(Libs.LOTTIE)
+    implementation(Libs.LOTTIE_COMPOSE)
     implementation(Libs.MATERIAL)
     implementation(Libs.PLAY_CORE_KTX)
     implementation(Libs.PREFERENCES)

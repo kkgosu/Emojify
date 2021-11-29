@@ -4,7 +4,12 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
+import androidx.compose.material.ripple.LocalRippleTheme
+import androidx.compose.material.ripple.RippleAlpha
+import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.graphics.Color
 
 /**
  * @author Konstantin Koval
@@ -39,7 +44,26 @@ fun EmojifyerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
     MaterialTheme(
         colors = colors,
         typography = Typography,
-        shapes = Shapes,
-        content = content
+        shapes = Shapes
+    ) {
+        CompositionLocalProvider(
+            LocalRippleTheme provides JetNewsRippleTheme,
+            content = content
+        )
+    }
+}
+
+private object JetNewsRippleTheme : RippleTheme {
+    // Here you should return the ripple color you want
+    // and not use the defaultRippleColor extension on RippleTheme.
+    // Using that will override the ripple color set in DarkMode
+    // or when you set light parameter to false
+    @Composable
+    override fun defaultColor(): Color = MaterialTheme.colors.primary
+
+    @Composable
+    override fun rippleAlpha(): RippleAlpha = RippleTheme.defaultRippleAlpha(
+        MaterialTheme.colors.primary,
+        lightTheme = isSystemInDarkTheme()
     )
 }

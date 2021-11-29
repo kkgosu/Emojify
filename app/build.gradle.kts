@@ -87,6 +87,8 @@ dependencies {
     implementation(Libs.Compose.ICONS_EXTENDED)
     implementation(Libs.Compose.MATERIAL)
     implementation(Libs.Compose.UI)
+    implementation(Libs.Compose.PAGER)
+    implementation(Libs.Compose.PAGER_INDICATOR)
     implementation(Libs.Compose.TOOLING)
     implementation(Libs.Compose.TOOLING_PREVIEW)
 

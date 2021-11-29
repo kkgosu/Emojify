@@ -34,5 +34,8 @@ object Libs {
         const val TOOLING = "androidx.compose.ui:ui-tooling:$compose_version"
         const val TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview:$compose_version"
         const val UI = "androidx.compose.ui:ui:$compose_version"
+
+        const val PAGER = "com.google.accompanist:accompanist-pager:0.21.3-beta" // Pager
+        const val PAGER_INDICATOR = "com.google.accompanist:accompanist-pager-indicators:0.21.3-beta" // Pager Indicators
     }
 }

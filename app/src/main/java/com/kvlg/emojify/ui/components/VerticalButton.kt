@@ -70,7 +70,7 @@ fun ButtonVertical(
         enabled = enabled,
         role = Role.Button,
         interactionSource = interactionSource,
-        indication = rememberRipple()
+        indication = rememberRipple(color = MaterialTheme.colors.primary)
     ) {
         CompositionLocalProvider(LocalContentAlpha provides contentColor.alpha) {
             ProvideTextStyle(

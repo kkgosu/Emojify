@@ -10,6 +10,8 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.getSystemService
 import androidx.fragment.app.Fragment
 import com.airbnb.lottie.LottieAnimationView
@@ -19,6 +21,9 @@ import com.kvlg.emojify.R
  * @author Konstantin Koval
  * @since 12.11.2020
  */
+
+@Composable
+fun Toast(text: String) = Toast.makeText(LocalContext.current, text, Toast.LENGTH_SHORT).show()
 
 fun Fragment.toast(text: String) = Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
 

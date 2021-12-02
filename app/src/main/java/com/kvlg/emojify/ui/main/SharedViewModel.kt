@@ -145,7 +145,7 @@ class SharedViewModel @Inject constructor(
     }
 
     private fun findEmoji(word: String): String? {
-        val filteredWord = word.toLowerCase(Locale.getDefault())
+        val filteredWord = word.lowercase()
         val result = emojiMap.values.find { em -> em.keywords.contains(filteredWord) }
         return result?.char
             ?: emojiList2.find { it.aliases.contains(filteredWord) || it.description == filteredWord || it.tags.contains(filteredWord) }?.emoji

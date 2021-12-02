@@ -42,6 +42,7 @@ class SharedViewModel @Inject constructor(
     private val _loading = MutableLiveData<Boolean>()
     private val _scrollToTop = MutableLiveData<Boolean>()
     private val _showInAppReview = MutableLiveData<Boolean>()
+    var currentText: String = ""
 
     init {
         val gson = Gson()
@@ -64,17 +65,21 @@ class SharedViewModel @Inject constructor(
     val scrollToTop: LiveData<Boolean> = _scrollToTop
     val showInAppReview: LiveData<Boolean> = _showInAppReview
 
-    fun emojifyText(input: String) {
+    fun emojifyText() {
         analyticsInteractor.onEmojifyClick()
         viewModelScope.launch {
             _loading.value = true
-            val result = modifyText(input)
+            val result = modifyText(currentText)
             _emojiText.value = result
             _loading.value = false
             if (result.isNotEmpty()) {
                 saveText(result)
             }
         }
+    }
+
+    fun clearText() {
+        _emojiText.value = ""
     }
 
     fun onCreateTabOpen() {

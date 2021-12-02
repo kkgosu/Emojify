@@ -11,6 +11,7 @@ object Libs {
     const val GSON = "com.google.code.gson:gson:2.8.6"
     const val HILT_ANDROID = "com.google.dagger:hilt-android:2.38.1"
     const val HILT_COMPILER = "com.google.dagger:hilt-android-compiler:2.38.1"
+    const val HILT_COMPOSE_VIEWMODEL = "androidx.hilt:hilt-navigation-compose:1.0.0-beta01"
     const val KOTLIN_STDLIB = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.20"
     const val LIFECYCLE_COMPOSE_VIEWMODEL = "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0"
     const val LIFECYCLE_LIVE_DATA_KTX = "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"

@@ -24,7 +24,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
 import com.kvlg.emojify.R
@@ -32,18 +31,22 @@ import com.kvlg.emojify.ui.components.CreateFragment
 import com.kvlg.emojify.ui.components.HistoryFragment
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
 import com.kvlg.emojify.ui.theme.Gray_600
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 /**
  * @author Konstantin Koval
  * @since 27.11.2021
  */
+@ExperimentalPagerApi
+@ExperimentalMaterialApi
+@AndroidEntryPoint
 class ComposeMainAcitivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             EmojifyerTheme {
-
+                EmojifyerMainScreen()
             }
         }
     }
@@ -52,7 +55,6 @@ class ComposeMainAcitivity : ComponentActivity() {
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
 @Composable
-@Preview
 fun EmojifyerMainScreen() {
     val tabs = listOf(
         TabItem.Create,

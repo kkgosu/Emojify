@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
@@ -35,7 +35,7 @@ import com.kvlg.emojify.utils.Toast
  */
 
 @Composable
-fun HistoryFragment(viewModel: SharedViewModel = viewModel()) {
+fun HistoryFragment(viewModel: SharedViewModel = hiltViewModel()) {
     val historyList by viewModel.history.observeAsState()
     Box {
         historyList?.let { result ->

@@ -69,6 +69,7 @@ dependencies {
     implementation(Libs.FRAGMENT_KTX)
     implementation(Libs.GSON)
     implementation(Libs.HILT_ANDROID)
+    implementation(Libs.HILT_COMPOSE_VIEWMODEL)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_COMPOSE_VIEWMODEL)
     implementation(Libs.LIFECYCLE_LIVE_DATA_KTX)

@@ -12,11 +12,7 @@ import com.kvlg.emojify.currentText
 import com.kvlg.emojify.databinding.FragmentCreateBinding
 import com.kvlg.emojify.ui.main.BaseFragment
 import com.kvlg.emojify.ui.main.SharedViewModel
-import com.kvlg.emojify.utils.copyToClipboard
-import com.kvlg.emojify.utils.hideAnimation
-import com.kvlg.emojify.utils.hideKeyboard
-import com.kvlg.emojify.utils.showAnimation
-import com.kvlg.emojify.utils.text
+import com.kvlg.emojify.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -64,7 +60,7 @@ class CreateFragment : BaseFragment() {
         with(binding) {
             createButton.setOnClickListener {
                 hideKeyboard()
-                inputText.text()?.let(viewModel::emojifyText)
+               // inputText.text()?.let(viewModel::emojifyText)
             }
             copyButton.setOnClickListener {
                 copyToClipboard(inputText.text())

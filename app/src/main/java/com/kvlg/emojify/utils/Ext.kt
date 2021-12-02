@@ -2,6 +2,7 @@ package com.kvlg.emojify.utils
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Context
 import android.os.Build
 import android.view.View
 import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
@@ -24,6 +25,8 @@ import com.kvlg.emojify.R
 
 @Composable
 fun Toast(text: String) = Toast.makeText(LocalContext.current, text, Toast.LENGTH_SHORT).show()
+
+fun toast(id: Int, context: Context) = Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
 
 fun Fragment.toast(text: String) = Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
 
@@ -86,4 +89,4 @@ enum class Theme(val storageKey: String) {
     DARK("dark"),
 }
 
-private const val CLIP_LABEL = "CLIP_LABEL"
+const val CLIP_LABEL = "CLIP_LABEL"

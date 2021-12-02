@@ -10,6 +10,7 @@ import androidx.compose.material.ripple.RippleTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.graphics.Color
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 /**
  * @author Konstantin Koval
@@ -34,7 +35,17 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun EmojifyerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun EmojifyerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setStatusBarColor(
+        color = Color.Transparent,
+        darkIcons = !isSystemInDarkTheme()
+    )
+    systemUiController.setNavigationBarColor(
+        color = Color.Transparent,
+        darkIcons = !isSystemInDarkTheme()
+    )
+
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {

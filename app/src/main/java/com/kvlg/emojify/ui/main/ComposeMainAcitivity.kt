@@ -25,9 +25,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
+import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.*
 import com.kvlg.emojify.R
 import com.kvlg.emojify.ui.components.CreateFragment
+import com.kvlg.emojify.ui.components.EmojifyScaffold
 import com.kvlg.emojify.ui.components.HistoryFragment
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
 import com.kvlg.emojify.ui.theme.Gray_600
@@ -44,9 +47,12 @@ import kotlinx.coroutines.launch
 class ComposeMainAcitivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             EmojifyerTheme {
-                EmojifyerMainScreen()
+                ProvideWindowInsets {
+                    EmojifyerMainScreen()
+                }
             }
         }
     }
@@ -61,7 +67,7 @@ fun EmojifyerMainScreen() {
         TabItem.History
     )
     val pagerState = rememberPagerState(initialPage = 0)
-    Scaffold(topBar = {
+    EmojifyScaffold(topBar = {
         TopAppBar(
             title = { Text(text = stringResource(R.string.app_name)) },
             backgroundColor = MaterialTheme.colors.background,

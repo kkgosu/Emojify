@@ -120,6 +120,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 Text(text = stringResource(id = R.string.emojify), modifier = Modifier.align(Alignment.CenterHorizontally))
             }
         }
+        NavigationBarInset(color = MaterialTheme.colors.background)
     }
 }
 

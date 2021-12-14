@@ -1,9 +1,6 @@
 package com.kvlg.emojify.ui.components
 
-import android.content.ClipData
-import android.content.ClipboardManager
 import android.content.Intent
-import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,14 +25,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.content.getSystemService
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kvlg.emojify.R
 import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
 import com.kvlg.emojify.ui.theme.Purple_500
-import com.kvlg.emojify.utils.CLIP_LABEL
-import com.kvlg.emojify.utils.toast
+import com.kvlg.emojify.utils.copyText
 
 /**
  * @author Konstantin Koval
@@ -47,7 +42,7 @@ import com.kvlg.emojify.utils.toast
 fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val emojiText by viewModel.emojiText.observeAsState("")
-    Column(modifier = Modifier.animateContentSize()) {
+    Column {
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
@@ -97,10 +92,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 Text(text = stringResource(id = R.string.clear), modifier = Modifier.align(Alignment.CenterHorizontally))
             }
             TextButtonVertical(onClick = {
-                val clipboardManager: ClipboardManager = context.getSystemService()!!
-                val clip = ClipData.newPlainText(CLIP_LABEL, emojiText)
-                clipboardManager.setPrimaryClip(clip)
-                toast(R.string.copy_text, context)
+                copyText(context, emojiText)
             }, modifier = Modifier.weight(1f)) {
                 Icon(
                     imageVector = Icons.Rounded.ContentCopy,

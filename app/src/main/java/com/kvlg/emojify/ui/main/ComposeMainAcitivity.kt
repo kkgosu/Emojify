@@ -7,6 +7,7 @@ import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.core.updateTransition
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
@@ -43,6 +44,7 @@ import kotlinx.coroutines.launch
  */
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
+@ExperimentalFoundationApi
 @AndroidEntryPoint
 class ComposeMainAcitivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +62,7 @@ class ComposeMainAcitivity : ComponentActivity() {
 
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
+@ExperimentalFoundationApi
 @Composable
 fun EmojifyerMainScreen() {
     val tabs = listOf(
@@ -75,7 +78,7 @@ fun EmojifyerMainScreen() {
             elevation = 0.dp,
             actions = {
                 IconButton(onClick = { /*TODO*/ }) {
-                    Icon(imageVector = Icons.Rounded.NightsStay, contentDescription = "Switch theme")
+                    Icon(imageVector = Icons.Rounded.NightsStay, contentDescription = "Switch theme", tint = MaterialTheme.colors.primary)
                 }
             }
         )
@@ -88,6 +91,7 @@ fun EmojifyerMainScreen() {
 }
 
 @ExperimentalMaterialApi
+@ExperimentalFoundationApi
 sealed class TabItem(val icon: ImageVector, val title: String, val screen: @Composable () -> Unit) {
     object Create : TabItem(Icons.Rounded.Create, "Create", { CreateFragment() })
     object History : TabItem(Icons.Rounded.History, "History", { HistoryFragment() })
@@ -95,6 +99,7 @@ sealed class TabItem(val icon: ImageVector, val title: String, val screen: @Comp
 
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
+@ExperimentalFoundationApi
 @Composable
 fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
     val scope = rememberCoroutineScope()
@@ -126,6 +131,7 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
 
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
+@ExperimentalFoundationApi
 @Composable
 fun TabsContent(tabs: List<TabItem>, pagerState: PagerState) {
     HorizontalPager(state = pagerState, count = tabs.size) { page ->

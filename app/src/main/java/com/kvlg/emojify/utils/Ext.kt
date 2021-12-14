@@ -30,6 +30,13 @@ fun toast(id: Int, context: Context) = Toast.makeText(context, id, Toast.LENGTH_
 
 fun Fragment.toast(text: String) = Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
 
+fun copyText(context: Context, text: String) {
+    val clipboardManager: ClipboardManager = context.getSystemService()!!
+    val clip = ClipData.newPlainText(CLIP_LABEL, text)
+    clipboardManager.setPrimaryClip(clip)
+    toast(R.string.copy_text, context)
+}
+
 fun EditText.text() = text?.toString()
 
 fun Fragment.showKeyboard() {

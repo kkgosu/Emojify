@@ -53,7 +53,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 .fillMaxWidth()
                 .weight(1f),
             value = emojiText,
-            onValueChange = { viewModel.currentText = it },
+            onValueChange = viewModel::onTextChanged,
             keyboardActions = KeyboardActions(onDone = {
                 viewModel.emojifyText()
             }),
@@ -75,7 +75,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 viewModel.onShareClick()
                 val intent = Intent(Intent.ACTION_SEND)
                 intent.type = "text/plain"
-                intent.putExtra(Intent.EXTRA_TEXT, viewModel.currentText)
+                intent.putExtra(Intent.EXTRA_TEXT, emojiText)
                 context.startActivity(Intent.createChooser(intent, "Share via"))
             }, modifier = Modifier.weight(1f)) {
                 Icon(
@@ -98,7 +98,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
             }
             TextButtonVertical(onClick = {
                 val clipboardManager: ClipboardManager = context.getSystemService()!!
-                val clip = ClipData.newPlainText(CLIP_LABEL, viewModel.currentText)
+                val clip = ClipData.newPlainText(CLIP_LABEL, emojiText)
                 clipboardManager.setPrimaryClip(clip)
                 toast(R.string.copy_text, context)
             }, modifier = Modifier.weight(1f)) {

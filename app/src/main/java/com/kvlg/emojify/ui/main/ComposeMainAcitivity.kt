@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.*
+import com.kvlg.emojify.EmojifyApplication
 import com.kvlg.emojify.R
 import com.kvlg.emojify.ui.components.CreateFragment
 import com.kvlg.emojify.ui.components.EmojifyScaffold
@@ -51,7 +52,7 @@ class ComposeMainAcitivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            EmojifyerTheme {
+            EmojifyerTheme(darkTheme = EmojifyApplication.isDark.value) {
                 ProvideWindowInsets {
                     EmojifyerMainScreen()
                 }
@@ -77,7 +78,7 @@ fun EmojifyerMainScreen() {
             contentColor = MaterialTheme.colors.primary,
             elevation = 0.dp,
             actions = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = { EmojifyApplication.toggleLightTheme() }) {
                     Icon(imageVector = Icons.Rounded.NightsStay, contentDescription = "Switch theme", tint = MaterialTheme.colors.primary)
                 }
             }

@@ -35,15 +35,15 @@ private val LightColorPalette = lightColors(
 )
 
 @Composable
-fun EmojifyerTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
+fun EmojifyerTheme(darkTheme: Boolean, content: @Composable () -> Unit) {
     val systemUiController = rememberSystemUiController()
     systemUiController.setStatusBarColor(
         color = Color.Transparent,
-        darkIcons = !isSystemInDarkTheme()
+        darkIcons = !darkTheme
     )
     systemUiController.setNavigationBarColor(
         color = Color.Transparent,
-        darkIcons = !isSystemInDarkTheme()
+        darkIcons = !darkTheme
     )
 
     val colors = if (darkTheme) {

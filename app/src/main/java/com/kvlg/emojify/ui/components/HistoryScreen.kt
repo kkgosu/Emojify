@@ -4,15 +4,18 @@ import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -33,6 +36,7 @@ import com.kvlg.emojify.domain.data
 import com.kvlg.emojify.model.EmojifyedText
 import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
+import com.kvlg.emojify.ui.theme.Gray_700
 import com.kvlg.emojify.utils.Toast
 import com.kvlg.emojify.utils.copyText
 
@@ -108,6 +112,8 @@ fun HistoryListItem(context: Context, item: EmojifyedText) {
             .shadow(elevation = 12.dp, shape = MaterialTheme.shapes.large)
             .background(color = MaterialTheme.colors.surface)
             .combinedClickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = rememberRipple(bounded = true, color = Gray_700),
                 onLongClick = {
                     copyText(context, item.text)
                 },
@@ -123,7 +129,7 @@ fun HistoryListItem(context: Context, item: EmojifyedText) {
 @Preview
 @Composable
 fun HistoryFragmentPreview() {
-    EmojifyerTheme {
+    EmojifyerTheme(darkTheme = false) {
         HistoryFragment()
     }
 }

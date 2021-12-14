@@ -2,6 +2,7 @@ package com.kvlg.emojify
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.runtime.mutableStateOf
 import com.yandex.metrica.YandexMetrica
 import com.yandex.metrica.YandexMetricaConfig
 import dagger.hilt.android.HiltAndroidApp
@@ -29,5 +30,12 @@ class EmojifyApplication : Application() {
         super.onTerminate()
         currentPage = 0
         currentText = null
+    }
+
+    companion object {
+        val isDark = mutableStateOf(false)
+        fun toggleLightTheme() {
+            isDark.value = !isDark.value
+        }
     }
 }

@@ -109,7 +109,7 @@ fun HistoryListItem(context: Context, item: EmojifyedText) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
-            .shadow(elevation = 12.dp, shape = MaterialTheme.shapes.large)
+            .shadow(elevation = 8.dp, shape = MaterialTheme.shapes.large)
             .background(color = MaterialTheme.colors.surface)
             .combinedClickable(
                 interactionSource = remember { MutableInteractionSource() },
@@ -121,7 +121,8 @@ fun HistoryListItem(context: Context, item: EmojifyedText) {
             )
             .padding(8.dp),
         style = MaterialTheme.typography.body1,
-        text = item.text
+        text = item.text,
+        color = MaterialTheme.colors.primaryVariant
     )
 }
 

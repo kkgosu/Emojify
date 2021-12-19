@@ -120,7 +120,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
 @Composable
 @Preview
 fun CreateFragmentPreview() {
-    EmojifyerTheme(darkTheme = false) {
+    EmojifyerTheme(darkTheme = true) {
         CreateFragment()
     }
 }

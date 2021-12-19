@@ -12,86 +12,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
  * @since 27.11.2021
  */
 
-class EmojifyerColors(
-    val toolbarBackground: Color,
-    val toolbarOnBackground: Color,
-    val text: Color,
-    val hintText: Color,
-    val background0: Color,
-    val background1: Color,
-    val background2: Color,
-    val tabInactive: Color,
-    val tabActive: Color,
-    val pointer: Color,
-    val mainButtonText: Color,
-    val secondaryButtonText: Color,
-    val editTextBackground: Color,
-    val isLight: Boolean
-)
-
-fun emojifyerDarkColors(
-    toolbarBackground: Color,
-    toolbarOnBackground: Color,
-    text: Color,
-    hintText: Color,
-    background0: Color,
-    background1: Color,
-    background2: Color,
-    tabInactive: Color,
-    tabActive: Color,
-    pointer: Color,
-    mainButtonText: Color,
-    secondaryButtonText: Color,
-    editTextBackground: Color
-): EmojifyerColors = EmojifyerColors(
-    toolbarBackground = toolbarBackground,
-    toolbarOnBackground = toolbarOnBackground,
-    text = text,
-    hintText = hintText,
-    background0 = background0,
-    background1 = background1,
-    background2 = background2,
-    tabInactive = tabInactive,
-    tabActive = tabActive,
-    pointer = pointer,
-    mainButtonText = mainButtonText,
-    secondaryButtonText = secondaryButtonText,
-    editTextBackground = editTextBackground,
-    isLight = false
-)
-
-fun emojifyerLightColors(
-    toolbarBackground: Color,
-    toolbarOnBackground: Color,
-    text: Color,
-    hintText: Color,
-    background0: Color,
-    background1: Color,
-    background2: Color,
-    tabInactive: Color,
-    tabActive: Color,
-    pointer: Color,
-    mainButtonText: Color,
-    secondaryButtonText: Color,
-    editTextBackground: Color,
-): EmojifyerColors = EmojifyerColors(
-    toolbarBackground = toolbarBackground,
-    toolbarOnBackground = toolbarOnBackground,
-    text = text,
-    hintText = hintText,
-    background0 = background0,
-    background1 = background1,
-    background2 = background2,
-    tabInactive = tabInactive,
-    tabActive = tabActive,
-    pointer = pointer,
-    mainButtonText = mainButtonText,
-    secondaryButtonText = secondaryButtonText,
-    editTextBackground = editTextBackground,
-    isLight = true
-)
-
-private val LightColorPalette = emojifyerLightColors(
+val LightColorPalette = emojifyerLightColors(
     toolbarBackground = White,
     toolbarOnBackground = Purple_500,
     text = Black,
@@ -107,7 +28,7 @@ private val LightColorPalette = emojifyerLightColors(
     editTextBackground = Gray_100
 )
 
-private val DarkColorPalette = emojifyerDarkColors(
+val DarkColorPalette = emojifyerDarkColors(
     toolbarBackground = Gray_900,
     toolbarOnBackground = Purple_500,
     text = White,
@@ -123,7 +44,7 @@ private val DarkColorPalette = emojifyerDarkColors(
     editTextBackground = Gray_800
 )
 
-private val LocalEmojifyerColors = compositionLocalOf<EmojifyerColors> {
+val LocalEmojifyerColors = compositionLocalOf<EmojifyerColors> {
     LightColorPalette
 }
 

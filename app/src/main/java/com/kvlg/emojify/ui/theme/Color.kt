@@ -31,3 +31,83 @@ val SystemUiScrimLight = Color(0xB3FFFFFF)//70% white
 val SystemUiScrimBlack = Color(0x40000000)//25% black
 val SavBarScrim = SystemUiScrimBlack
 val StatusBarScrim = SystemUiScrimBlack
+
+
+class EmojifyerColors(
+    val toolbarBackground: Color,
+    val toolbarOnBackground: Color,
+    val text: Color,
+    val hintText: Color,
+    val background0: Color,
+    val background1: Color,
+    val background2: Color,
+    val tabInactive: Color,
+    val tabActive: Color,
+    val pointer: Color,
+    val mainButtonText: Color,
+    val secondaryButtonText: Color,
+    val editTextBackground: Color,
+    val isLight: Boolean
+)
+
+fun emojifyerDarkColors(
+    toolbarBackground: Color,
+    toolbarOnBackground: Color,
+    text: Color,
+    hintText: Color,
+    background0: Color,
+    background1: Color,
+    background2: Color,
+    tabInactive: Color,
+    tabActive: Color,
+    pointer: Color,
+    mainButtonText: Color,
+    secondaryButtonText: Color,
+    editTextBackground: Color
+): EmojifyerColors = EmojifyerColors(
+    toolbarBackground = toolbarBackground,
+    toolbarOnBackground = toolbarOnBackground,
+    text = text,
+    hintText = hintText,
+    background0 = background0,
+    background1 = background1,
+    background2 = background2,
+    tabInactive = tabInactive,
+    tabActive = tabActive,
+    pointer = pointer,
+    mainButtonText = mainButtonText,
+    secondaryButtonText = secondaryButtonText,
+    editTextBackground = editTextBackground,
+    isLight = false
+)
+
+fun emojifyerLightColors(
+    toolbarBackground: Color,
+    toolbarOnBackground: Color,
+    text: Color,
+    hintText: Color,
+    background0: Color,
+    background1: Color,
+    background2: Color,
+    tabInactive: Color,
+    tabActive: Color,
+    pointer: Color,
+    mainButtonText: Color,
+    secondaryButtonText: Color,
+    editTextBackground: Color,
+): EmojifyerColors = EmojifyerColors(
+    toolbarBackground = toolbarBackground,
+    toolbarOnBackground = toolbarOnBackground,
+    text = text,
+    hintText = hintText,
+    background0 = background0,
+    background1 = background1,
+    background2 = background2,
+    tabInactive = tabInactive,
+    tabActive = tabActive,
+    pointer = pointer,
+    mainButtonText = mainButtonText,
+    secondaryButtonText = secondaryButtonText,
+    editTextBackground = editTextBackground,
+    isLight = true
+)

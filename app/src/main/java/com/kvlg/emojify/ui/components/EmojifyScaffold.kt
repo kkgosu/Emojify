@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.statusBarsHeight
+import com.kvlg.emojify.ui.theme.EmojifyerTheme
 
 /**
  * @author Konstantin Koval
@@ -27,9 +28,9 @@ fun EmojifyScaffold(
     floatingActionButton: @Composable () -> Unit = {},
     floatingActionButtonPosition: FabPosition = FabPosition.End,
     isFloatingActionButtonDocked: Boolean = false,
-    statusBarColor: Color = MaterialTheme.colors.background,
-    navigationBarColor: Color = MaterialTheme.colors.background,
-    backgroundColor: Color = MaterialTheme.colors.background,
+    statusBarColor: Color = EmojifyerTheme.colors.background1,
+    navigationBarColor: Color = EmojifyerTheme.colors.background1,
+    backgroundColor: Color = EmojifyerTheme.colors.background0,
     contentColor: Color = contentColorFor(backgroundColor),
     content: @Composable (PaddingValues) -> Unit
 ) {

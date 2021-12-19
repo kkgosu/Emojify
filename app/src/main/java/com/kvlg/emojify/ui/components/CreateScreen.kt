@@ -1,6 +1,7 @@
 package com.kvlg.emojify.ui.components
 
 import android.content.Intent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,7 +30,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.kvlg.emojify.R
 import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
-import com.kvlg.emojify.ui.theme.Purple_500
 import com.kvlg.emojify.utils.copyText
 
 /**
@@ -46,16 +46,18 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
         TextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(1f),
+                .weight(1f)
+                .background(color = EmojifyerTheme.colors.editTextBackground),
             value = emojiText,
             onValueChange = viewModel::onTextChanged,
             keyboardActions = KeyboardActions(onDone = {
                 viewModel.emojifyText()
             }),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done),
-            placeholder = { Text(text = stringResource(id = R.string.enter_text_here)) },
+            placeholder = { Text(text = stringResource(id = R.string.enter_text_here), color = EmojifyerTheme.colors.hintText) },
             colors = TextFieldDefaults.textFieldColors(
-                cursorColor = Purple_500,
+                textColor = EmojifyerTheme.colors.text,
+                cursorColor = EmojifyerTheme.colors.pointer,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent
@@ -64,7 +66,9 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp), verticalAlignment = Alignment.Bottom
+                .background(EmojifyerTheme.colors.toolbarBackground)
+                .padding(12.dp)
+            , verticalAlignment = Alignment.Bottom
         ) {
             TextButtonVertical(onClick = {
                 viewModel.onShareClick()
@@ -76,9 +80,14 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 Icon(
                     imageVector = Icons.Rounded.Share,
                     contentDescription = stringResource(id = R.string.share),
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    tint = EmojifyerTheme.colors.secondaryButtonText
+                )
+                Text(
+                    text = stringResource(id = R.string.share),
+                    color = EmojifyerTheme.colors.secondaryButtonText,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                Text(text = stringResource(id = R.string.share), modifier = Modifier.align(Alignment.CenterHorizontally))
             }
             TextButtonVertical(onClick = {
                 viewModel.clearText()
@@ -87,9 +96,14 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 Icon(
                     imageVector = Icons.Rounded.Clear,
                     contentDescription = stringResource(id = R.string.clear),
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    tint = EmojifyerTheme.colors.secondaryButtonText
+                )
+                Text(
+                    text = stringResource(id = R.string.clear),
+                    color = EmojifyerTheme.colors.secondaryButtonText,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                Text(text = stringResource(id = R.string.clear), modifier = Modifier.align(Alignment.CenterHorizontally))
             }
             TextButtonVertical(onClick = {
                 copyText(context, emojiText)
@@ -97,9 +111,14 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 Icon(
                     imageVector = Icons.Rounded.ContentCopy,
                     contentDescription = stringResource(id = R.string.copy_button),
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    tint = EmojifyerTheme.colors.secondaryButtonText
+                )
+                Text(
+                    text = stringResource(id = R.string.copy_button),
+                    color = EmojifyerTheme.colors.secondaryButtonText,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                Text(text = stringResource(id = R.string.copy_button), modifier = Modifier.align(Alignment.CenterHorizontally))
             }
             ButtonVertical(onClick = {
                 viewModel.emojifyText()
@@ -107,12 +126,17 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 Icon(
                     imageVector = Icons.Rounded.EmojiEmotions,
                     contentDescription = stringResource(id = R.string.emojify),
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    tint = EmojifyerTheme.colors.mainButtonText
+                )
+                Text(
+                    text = stringResource(id = R.string.emojify),
+                    color = EmojifyerTheme.colors.mainButtonText,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
-                Text(text = stringResource(id = R.string.emojify), modifier = Modifier.align(Alignment.CenterHorizontally))
             }
         }
-        NavigationBarInset(color = MaterialTheme.colors.background)
+        NavigationBarInset(color = EmojifyerTheme.colors.background1)
     }
 }
 

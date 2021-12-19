@@ -35,7 +35,6 @@ import com.kvlg.emojify.ui.components.CreateFragment
 import com.kvlg.emojify.ui.components.EmojifyScaffold
 import com.kvlg.emojify.ui.components.HistoryFragment
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
-import com.kvlg.emojify.ui.theme.Gray_600
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -74,12 +73,12 @@ fun EmojifyerMainScreen() {
     EmojifyScaffold(topBar = {
         TopAppBar(
             title = { Text(text = stringResource(R.string.app_name)) },
-            backgroundColor = MaterialTheme.colors.background,
-            contentColor = MaterialTheme.colors.primary,
+            backgroundColor = EmojifyerTheme.colors.toolbarBackground,
+            contentColor = EmojifyerTheme.colors.toolbarOnBackground,
             elevation = 0.dp,
             actions = {
                 IconButton(onClick = { EmojifyApplication.toggleLightTheme() }) {
-                    Icon(imageVector = Icons.Rounded.NightsStay, contentDescription = "Switch theme", tint = MaterialTheme.colors.primary)
+                    Icon(imageVector = Icons.Rounded.NightsStay, contentDescription = "Switch theme", tint = EmojifyerTheme.colors.toolbarOnBackground)
                 }
             }
         )
@@ -111,8 +110,8 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
                 Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
             )
         },
-        backgroundColor = MaterialTheme.colors.background,
-        contentColor = MaterialTheme.colors.primary
+        backgroundColor = EmojifyerTheme.colors.toolbarBackground,
+        contentColor = EmojifyerTheme.colors.toolbarOnBackground
     ) {
         tabs.forEachIndexed { index, tab ->
             TopIconTab(
@@ -124,7 +123,8 @@ fun Tabs(tabs: List<TabItem>, pagerState: PagerState) {
                         pagerState.animateScrollToPage(index)
                     }
                 },
-                unselectedContentColor = Gray_600
+                selectedContentColor = EmojifyerTheme.colors.tabActive,
+                unselectedContentColor = EmojifyerTheme.colors.tabInactive
             )
         }
     }
@@ -217,7 +217,6 @@ private fun TabTransition(
 
 // Tab specifications
 private val SmallTabHeight = 48.dp
-private val LargeTabHeight = 72.dp
 
 // Tab transition specifications
 private const val TabFadeInAnimationDuration = 150

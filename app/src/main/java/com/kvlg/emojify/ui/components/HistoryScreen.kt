@@ -49,7 +49,7 @@ import com.kvlg.emojify.utils.copyText
 @Composable
 fun HistoryFragment(viewModel: SharedViewModel = hiltViewModel()) {
     val historyList by viewModel.history.observeAsState()
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().background(color = EmojifyerTheme.colors.background1)) {
         historyList?.let { result ->
             when (result) {
                 is Result.Success -> {
@@ -110,7 +110,7 @@ fun HistoryListItem(context: Context, item: EmojifyedText) {
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)
             .shadow(elevation = 8.dp, shape = MaterialTheme.shapes.large)
-            .background(color = MaterialTheme.colors.surface)
+            .background(color = EmojifyerTheme.colors.background2)
             .combinedClickable(
                 interactionSource = remember { MutableInteractionSource() },
                 indication = rememberRipple(bounded = true, color = Gray_700),
@@ -122,7 +122,7 @@ fun HistoryListItem(context: Context, item: EmojifyedText) {
             .padding(8.dp),
         style = MaterialTheme.typography.body1,
         text = item.text,
-        color = MaterialTheme.colors.primaryVariant
+        color = EmojifyerTheme.colors.text
     )
 }
 

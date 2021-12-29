@@ -1,13 +1,5 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.Emojify" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <item name="colorAccent">@color/purple_500</item>
-    </style>
-
-    <style name="Theme.Emojify.Night">
-        <item name="colorPrimary">@color/gray_600</item>
     </style>
 </resources>

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import com.kvlg.emojify.utils.Theme
 
 /**
  * @author Konstantin Koval
@@ -21,7 +20,7 @@ class AppSettings(
         }
     }
 
-    fun currentTheme(): Theme = if (prefs.getBoolean(THEME_PREFS, true)) Theme.LIGHT else Theme.DARK
+    fun isLightTheme(): Boolean = prefs.getBoolean(THEME_PREFS, true)
 
     companion object {
         private const val THEME_PREFS = "theme"

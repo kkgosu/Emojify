@@ -1,5 +1,6 @@
 package com.kvlg.emojify.ui.main
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import com.kvlg.emojify.domain.AppSettings
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,10 @@ class MainViewModel @Inject constructor(
     private val appSettings: AppSettings
 ) : ViewModel() {
 
-    fun getCurrentTheme() = appSettings.currentTheme()
+    val isLightTheme = mutableStateOf(appSettings.isLightTheme())
 
-    fun swapThemes() = appSettings.swapThemes()
+    fun swapThemes() {
+        appSettings.swapThemes()
+        isLightTheme.value = appSettings.isLightTheme()
+    }
 }

@@ -27,9 +27,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.*
-import com.kvlg.emojify.EmojifyApplication
 import com.kvlg.emojify.R
 import com.kvlg.emojify.ui.components.CreateFragment
 import com.kvlg.emojify.ui.components.EmojifyScaffold
@@ -51,9 +51,10 @@ class ComposeMainAcitivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            EmojifyerTheme(darkTheme = EmojifyApplication.isDark.value) {
+            val mainViewModel: MainViewModel = viewModel()
+            EmojifyerTheme(darkTheme = mainViewModel.isLightTheme.value) {
                 ProvideWindowInsets {
-                    EmojifyerMainScreen()
+                    EmojifyerMainScreen(mainViewModel)
                 }
             }
         }
@@ -64,7 +65,7 @@ class ComposeMainAcitivity : ComponentActivity() {
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun EmojifyerMainScreen() {
+fun EmojifyerMainScreen(mainViewModel: MainViewModel) {
     val tabs = listOf(
         TabItem.Create,
         TabItem.History
@@ -77,8 +78,12 @@ fun EmojifyerMainScreen() {
             contentColor = EmojifyerTheme.colors.toolbarOnBackground,
             elevation = 0.dp,
             actions = {
-                IconButton(onClick = { EmojifyApplication.toggleLightTheme() }) {
-                    Icon(imageVector = Icons.Rounded.NightsStay, contentDescription = "Switch theme", tint = EmojifyerTheme.colors.toolbarOnBackground)
+                IconButton(onClick = { mainViewModel.swapThemes() }) {
+                    Icon(
+                        imageVector = Icons.Rounded.NightsStay,
+                        contentDescription = "Switch theme",
+                        tint = EmojifyerTheme.colors.toolbarOnBackground
+                    )
                 }
             }
         )

@@ -5,54 +5,9 @@
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorAccent">@color/purple_500</item>
-        <!-- Window decor -->
-        <item name="editTextBackground">@color/gray_100</item>
-        <item name="android:fontFamily">@font/futurabook</item>
-        <item name="fontFamily">@font/futurabook</item>
-        <item name="android:windowAnimationStyle">@null</item>
-        <item name="textColor">@color/black</item>
-        <item name="textColorBrand">@color/purple_500</item>
-        <item name="android:textColorHint">@color/gray_500</item>
-        <item name="background0">@color/white</item>
-        <item name="background1">@color/white</item>
-        <item name="background2">@color/gray_100</item>
-
-        <item name="tabActiveColor">@color/purple_500</item>
-        <item name="tabInactiveColor">@color/gray_600</item>
-
-        <item name="editTextPointerColor">@color/purple_500</item>
-        <item name="editTextColor">@color/black</item>
-
-        <item name="simpleButtonTextColor">@color/purple_500</item>
-        <item name="simpleButtonIconColor">@color/purple_500</item>
-
-        <item name="colorControlHighlight">@color/purple_500</item>
-
-        <item name="iconTintBrand">@color/purple_500</item>
     </style>
 
     <style name="Theme.Emojify.Night">
         <item name="colorPrimary">@color/gray_600</item>
-        <item name="editTextBackground">@color/gray_800</item>
-        <item name="background0">@color/black</item>
-        <item name="background1">@color/gray_900</item>
-        <item name="background2">@color/gray_800</item>
-        <item name="textColor">@color/white</item>
-        <item name="textColorBrand">@color/purple_a200</item>
-
-        <item name="tabActiveColor">@color/white</item>
-        <item name="tabInactiveColor">@color/gray_500</item>
-
-        <item name="editTextPointerColor">@color/white</item>
-        <item name="editTextColor">@color/white</item>
-
-        <item name="simpleButtonTextColor">@color/white</item>
-        <item name="simpleButtonIconColor">@color/white</item>
-
-        <item name="colorControlHighlight">@color/white</item>
     </style>
-
-    <style name="Theme.Emojify.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.Emojify.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

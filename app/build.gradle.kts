@@ -61,7 +61,7 @@ dependencies {
     implementation(Libs.APP_METRICA)
     implementation(Libs.COROUTINES)
     implementation(Libs.GSON)
-    implementation(Libs.HILT_ANDROID)
+    implementation("com.google.dagger:hilt-android:2.38.1")
     implementation(Libs.HILT_COMPOSE_VIEWMODEL)
     implementation(Libs.KOTLIN_STDLIB)
     implementation(Libs.LIFECYCLE_COMPOSE_VIEWMODEL)
@@ -89,7 +89,7 @@ dependencies {
     implementation(Libs.Compose.TOOLING)
     implementation(Libs.Compose.TOOLING_PREVIEW)
 
-    kapt(Libs.HILT_COMPILER)
+    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
     kapt(Libs.ROOM_COMPILER)
 }
 

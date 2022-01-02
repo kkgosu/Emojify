@@ -18,15 +18,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.accompanist.insets.imePadding
+import com.google.accompanist.insets.navigationBarsWithImePadding
 import com.kvlg.emojify.R
 import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
@@ -37,11 +41,13 @@ import com.kvlg.emojify.utils.copyText
  * @since 29.11.2021
  */
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
 fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
     val context = LocalContext.current
     val emojiText by viewModel.emojiText.observeAsState("")
+    val keyboardController = LocalSoftwareKeyboardController.current
     Column {
         TextField(
             modifier = Modifier
@@ -52,6 +58,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
             onValueChange = viewModel::onTextChanged,
             keyboardActions = KeyboardActions(onDone = {
                 viewModel.emojifyText()
+                keyboardController?.hide()
             }),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text, imeAction = ImeAction.Done),
             placeholder = { Text(text = stringResource(id = R.string.enter_text_here), color = EmojifyerTheme.colors.hintText) },
@@ -140,6 +147,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
 @Preview

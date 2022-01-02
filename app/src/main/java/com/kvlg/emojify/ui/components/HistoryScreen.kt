@@ -72,12 +72,14 @@ fun HistoryFragment(viewModel: SharedViewModel = hiltViewModel()) {
                                 modifier = Modifier.fillMaxWidth(),
                                 text = stringResource(id = R.string.there_is_no_content_yet),
                                 style = MaterialTheme.typography.h4,
+                                color = EmojifyerTheme.colors.text,
                                 textAlign = TextAlign.Center
                             )
                             Text(
                                 modifier = Modifier.fillMaxWidth(),
                                 text = stringResource(id = R.string.all_the_emojifyed_texts_will_be_saved_there),
                                 style = MaterialTheme.typography.h6,
+                                color = EmojifyerTheme.colors.text,
                                 textAlign = TextAlign.Center
                             )
                         }

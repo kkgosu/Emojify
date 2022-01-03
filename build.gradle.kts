@@ -69,6 +69,8 @@ fun TestedExtension.configureBuildTypes() {
         }
         maybeCreate(AppConfig.BuildTypes.DEV.name).apply {
             isDebuggable = true
+            isMinifyEnabled = true
+            configProguard(isLibrary)
         }
     }
 }

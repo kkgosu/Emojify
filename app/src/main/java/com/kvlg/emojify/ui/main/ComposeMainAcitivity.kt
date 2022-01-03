@@ -44,8 +44,8 @@ class ComposeMainAcitivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             val mainViewModel: MainViewModel = hiltViewModel()
-            ProvideWindowInsets {
-                EmojifyerTheme(darkTheme = mainViewModel.isLightTheme.value) {
+            EmojifyerTheme(darkTheme = mainViewModel.isLightTheme.value) {
+                ProvideWindowInsets {
                     EmojifyerMainScreen(mainViewModel)
                 }
             }

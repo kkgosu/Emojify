@@ -20,7 +20,6 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.set
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
@@ -60,8 +59,6 @@ class SharedViewModel @Inject constructor(
         private set
     var emojiText = mutableStateOf("")
         private set
-    var scrollToTop = mutableStateOf(false)
-        private set
     var showInAppReview = mutableStateOf(false)
         private set
 
@@ -69,7 +66,6 @@ class SharedViewModel @Inject constructor(
         analyticsInteractor.onEmojifyClick()
         viewModelScope.launch {
             loading.value = true
-            delay(3000)
             val result = modifyText(emojiText.value)
             emojiText.value = result
             loading.value = false
@@ -109,10 +105,6 @@ class SharedViewModel @Inject constructor(
 
     fun onClearClick() {
         analyticsInteractor.onClearClick()
-    }
-
-    fun setScrollToTop(value: Boolean) {
-        scrollToTop.value = value
     }
 
     private suspend fun saveText(text: String) {

@@ -60,8 +60,8 @@ import com.kvlg.emojify.utils.copyText
 @Composable
 fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
     val context = LocalContext.current
-    val emojiText by viewModel.emojiText
-    val loading by viewModel.loading
+    val emojiText by remember { viewModel.emojiText }
+    val loading by remember { viewModel.loading }
     val keyboardController = LocalSoftwareKeyboardController.current
     val lottieComposition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.preloader_51))
     val progress by animateLottieCompositionAsState(composition = lottieComposition, iterations = LottieConstants.IterateForever)

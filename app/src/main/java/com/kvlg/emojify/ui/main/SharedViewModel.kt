@@ -23,6 +23,7 @@ import org.json.JSONObject
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.set
+import kotlinx.coroutines.delay
 
 /**
  * @author Konstantin Koval
@@ -68,6 +69,7 @@ class SharedViewModel @Inject constructor(
         analyticsInteractor.onEmojifyClick()
         viewModelScope.launch {
             _loading.value = true
+            delay(3000)
             val result = modifyText(emojiText.value.orEmpty())
             _emojiText.value = result
             _loading.value = false

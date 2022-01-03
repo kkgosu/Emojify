@@ -27,7 +27,6 @@ import androidx.compose.material.icons.rounded.EmojiEmotions
 import androidx.compose.material.icons.rounded.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -61,8 +60,8 @@ import com.kvlg.emojify.utils.copyText
 @Composable
 fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
     val context = LocalContext.current
-    val emojiText by viewModel.emojiText.observeAsState("")
-    val loading by viewModel.loading.observeAsState(initial = false)
+    val emojiText by viewModel.emojiText
+    val loading by viewModel.loading
     val keyboardController = LocalSoftwareKeyboardController.current
     val lottieComposition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.preloader_51))
     val progress by animateLottieCompositionAsState(composition = lottieComposition, iterations = LottieConstants.IterateForever)
@@ -131,6 +130,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                     )
                 }
                 TextButtonVertical(onClick = {
+                    viewModel.onCopyClick()
                     copyText(context, emojiText)
                 }, modifier = Modifier.weight(1f)) {
                     Icon(

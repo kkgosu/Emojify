@@ -14,7 +14,7 @@ class AppSettings(
 ) {
     private var prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
-    fun swapThemes() {
+    fun switchThemes() {
         prefs.edit {
             putBoolean(THEME_PREFS, !prefs.getBoolean(THEME_PREFS, true))
         }

@@ -1,9 +1,9 @@
 package com.kvlg.emojify.ui.main
 
 import android.content.SharedPreferences
+import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
@@ -16,14 +16,14 @@ import com.kvlg.emojify.model.EmojiItem2
 import com.kvlg.emojify.model.EmojifyedText
 import com.kvlg.emojify.model.Emojis
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import org.json.JSONObject
 import java.util.*
 import javax.inject.Inject
 import kotlin.collections.set
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
 
 /**
  * @author Konstantin Koval
@@ -39,10 +39,6 @@ class SharedViewModel @Inject constructor(
 
     private val emojiMap = mutableMapOf<String, EmojiItem>()
     private var emojiList2 = emptyList<EmojiItem2>()
-    private val _emojiText = MutableLiveData<String>()
-    private val _loading = MutableLiveData<Boolean>()
-    private val _scrollToTop = MutableLiveData<Boolean>()
-    private val _showInAppReview = MutableLiveData<Boolean>()
 
     init {
         val gson = Gson()
@@ -60,19 +56,23 @@ class SharedViewModel @Inject constructor(
     }
 
     val history: LiveData<Result<List<EmojifyedText>>> = interactor.getAllTexts()
-    val emojiText: LiveData<String> = _emojiText
-    val loading: LiveData<Boolean> = _loading
-    val scrollToTop: LiveData<Boolean> = _scrollToTop
-    val showInAppReview: LiveData<Boolean> = _showInAppReview
+    var loading = mutableStateOf(false)
+        private set
+    var emojiText = mutableStateOf("")
+        private set
+    var scrollToTop = mutableStateOf(false)
+        private set
+    var showInAppReview = mutableStateOf(false)
+        private set
 
     fun emojifyText() {
         analyticsInteractor.onEmojifyClick()
         viewModelScope.launch {
-            _loading.value = true
+            loading.value = true
             delay(3000)
-            val result = modifyText(emojiText.value.orEmpty())
-            _emojiText.value = result
-            _loading.value = false
+            val result = modifyText(emojiText.value)
+            emojiText.value = result
+            loading.value = false
             if (result.isNotEmpty()) {
                 saveText(result)
             }
@@ -80,11 +80,11 @@ class SharedViewModel @Inject constructor(
     }
 
     fun onTextChanged(text: String) {
-        _emojiText.value = text
+        emojiText.value = text
     }
 
     fun clearText() {
-        _emojiText.value = ""
+        emojiText.value = ""
     }
 
     fun onCreateTabOpen() {
@@ -112,7 +112,7 @@ class SharedViewModel @Inject constructor(
     }
 
     fun setScrollToTop(value: Boolean) {
-        _scrollToTop.value = value
+        scrollToTop.value = value
     }
 
     private suspend fun saveText(text: String) {
@@ -164,7 +164,7 @@ class SharedViewModel @Inject constructor(
     private fun checkForInAppReview() {
         val current = preferences.getInt(APP_ENTERS_COUNT_KEY, 1)
         if (current % 20 == 0) {
-            _showInAppReview.value = true
+            showInAppReview.value = true
         }
         preferences.edit {
             putInt(APP_ENTERS_COUNT_KEY, current + 1)

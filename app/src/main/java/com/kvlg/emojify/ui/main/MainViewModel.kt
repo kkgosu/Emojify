@@ -17,8 +17,8 @@ class MainViewModel @Inject constructor(
 
     val isLightTheme = mutableStateOf(appSettings.isLightTheme())
 
-    fun swapThemes() {
-        appSettings.swapThemes()
+    fun switchThemes() {
+        appSettings.switchThemes()
         isLightTheme.value = appSettings.isLightTheme()
     }
 }

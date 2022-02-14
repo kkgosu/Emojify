@@ -31,7 +31,7 @@ object Libs {
         const val TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview:$compose_version"
         const val UI = "androidx.compose.ui:ui:$compose_version"
 
-        private const val appcompanist_version = "0.21.3-beta"
+        private const val appcompanist_version = "0.24.2-alpha"
         const val INSETS = "com.google.accompanist:accompanist-insets:$appcompanist_version"
         const val PAGER = "com.google.accompanist:accompanist-pager:$appcompanist_version" // Pager
         const val PAGER_INDICATOR = "com.google.accompanist:accompanist-pager-indicators:$appcompanist_version" // Pager Indicators

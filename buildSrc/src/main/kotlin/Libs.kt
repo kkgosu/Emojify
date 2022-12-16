@@ -1,5 +1,5 @@
 object Libs {
-    const val APP_METRICA = "com.yandex.android:mobmetricalib:4.0.0"
+    const val APP_METRICA = "com.yandex.android:mobmetricalib:5.0.0"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
     const val GSON = "com.google.code.gson:gson:2.8.6"
     const val HILT_ANDROID = "com.google.dagger:hilt-android:2.43.2"

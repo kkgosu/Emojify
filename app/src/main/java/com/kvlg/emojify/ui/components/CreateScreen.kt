@@ -145,9 +145,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                 }
-                ButtonVertical(onClick = {
-                    viewModel.emojifyText()
-                }, modifier = Modifier.weight(1f)) {
+                ButtonVertical(onClick = viewModel::emojifyText, modifier = Modifier.weight(1f)) {
                     Icon(
                         imageVector = Icons.Rounded.EmojiEmotions,
                         contentDescription = stringResource(id = R.string.emojify),

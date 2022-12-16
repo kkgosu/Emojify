@@ -1,5 +1,4 @@
 include(
-    ":app",
-    ":FluidLayout"
+    ":app"
 )
 rootProject.name = "Emojifyer"

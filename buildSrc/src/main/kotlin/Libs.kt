@@ -1,5 +1,4 @@
 object Libs {
-    const val APPCOMPAT = "androidx.appcompat:appcompat:1.4.0"
     const val APP_METRICA = "com.yandex.android:mobmetricalib:4.0.0"
     const val COROUTINES = "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
     const val GSON = "com.google.code.gson:gson:2.8.6"

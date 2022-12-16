@@ -18,7 +18,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.rememberPagerState
 import com.kvlg.emojify.R
@@ -33,7 +32,6 @@ import dagger.hilt.android.AndroidEntryPoint
  * @author Konstantin Koval
  * @since 27.11.2021
  */
-@ExperimentalPagerApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
@@ -45,16 +43,14 @@ class ComposeMainAcitivity : ComponentActivity() {
         setContent {
             val mainViewModel: MainViewModel = hiltViewModel()
             EmojifyerTheme(darkTheme = mainViewModel.isLightTheme.value) {
-                ProvideWindowInsets {
-                    EmojifyerMainScreen(mainViewModel)
-                }
+                EmojifyerMainScreen(mainViewModel)
             }
         }
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @ExperimentalComposeUiApi
-@ExperimentalPagerApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable

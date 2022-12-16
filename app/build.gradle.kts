@@ -78,7 +78,6 @@ dependencies {
     implementation(Libs.Compose.ACTIVITY)
     implementation(Libs.Compose.COIL)
     implementation(Libs.Compose.ICONS_EXTENDED)
-    implementation(Libs.Compose.INSETS)
     implementation(Libs.Compose.MATERIAL)
     implementation(Libs.Compose.RUNTIME_LIVEDATA)
     implementation(Libs.Compose.UI)

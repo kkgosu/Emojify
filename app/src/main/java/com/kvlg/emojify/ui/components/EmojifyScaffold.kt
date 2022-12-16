@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.imePadding
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
@@ -16,8 +19,6 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.google.accompanist.insets.navigationBarsHeight
-import com.google.accompanist.insets.statusBarsHeight
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
 
 /**
@@ -70,7 +71,7 @@ fun StatusBarInset(color: Color) {
     Spacer(
         modifier = Modifier
             .background(color)
-            .statusBarsHeight()
+            .statusBarsPadding()
             .fillMaxWidth()
     )
 }
@@ -80,7 +81,8 @@ fun NavigationBarInset(color: Color) {
     Spacer(
         modifier = Modifier
             .background(color)
-            .navigationBarsHeight()
+            .navigationBarsPadding()
+            .imePadding()
             .fillMaxWidth()
     )
 }

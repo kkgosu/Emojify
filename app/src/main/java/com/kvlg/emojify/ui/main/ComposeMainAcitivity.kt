@@ -74,7 +74,6 @@ fun EmojifyerMainScreen(mainViewModel: MainViewModel, sharedViewModel: SharedVie
                 IconButton(onClick = {
                     mainViewModel.switchThemes()
                     sharedViewModel.onThemeChange()
-
                 }) {
                     Icon(
                         imageVector = Icons.Rounded.NightsStay,

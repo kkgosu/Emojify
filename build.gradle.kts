@@ -76,8 +76,11 @@ fun TestedExtension.configureBuildTypes() {
 }
 
 releasesHub {
-    dependenciesPaths = listOf("buildSrc/src/main/kotlin/Libs.kt", "buildSrc/src/main/kotlin/BuildLibs.kt")
+    autoDetectDependenciesPaths = true
+    //dependenciesPaths = listOf("buildSrc/src/main/kotlin/Libs.kt", "buildSrc/src/main/kotlin/BuildLibs.kt")
     excludes = listOf("gradle")
+
+    gitHubRepository = "Emojify"
 
     pullRequestEnabled = true
 

@@ -55,7 +55,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":FluidLayout"))
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
     implementation(Libs.APP_METRICA)

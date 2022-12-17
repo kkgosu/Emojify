@@ -23,5 +23,6 @@ class EmojifyApplication : Application() {
             .build()
         YandexMetrica.activate(this, config)
         YandexMetrica.enableActivityAutoTracking(this)
+        YandexMetrica.setStatisticsSending(this, false)
     }
 }

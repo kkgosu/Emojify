@@ -22,7 +22,19 @@ class AppSettings(
 
     fun isLightTheme(): Boolean = prefs.getBoolean(THEME_PREFS, true)
 
+    fun isFirstLaunch(): Boolean = prefs.getBoolean(IS_FIRST_LAUNCH, true)
+    fun setNotFirstLaunch() = prefs.edit {
+        putBoolean(IS_FIRST_LAUNCH, false)
+    }
+
+    fun isMetricsEnabled() = prefs.getBoolean(IS_METRICS_ENABLED, false)
+    fun setMetricsEnabled(isEnabled: Boolean) = prefs.edit {
+        putBoolean(IS_METRICS_ENABLED, isEnabled)
+    }
+
     companion object {
         private const val THEME_PREFS = "theme"
+        private const val IS_FIRST_LAUNCH = "isFirstLaunch"
+        private const val IS_METRICS_ENABLED = "isMetricsEnabled"
     }
 }

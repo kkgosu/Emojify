@@ -70,7 +70,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
     val progress by animateLottieCompositionAsState(composition = lottieComposition, iterations = LottieConstants.IterateForever)
     val showInAppReview by remember(viewModel::showInAppReview)
     if (showInAppReview) {
-        showInAppReview(context)
+        showInAppReview(context, viewModel)
     }
     Box {
         Column {
@@ -152,7 +152,10 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
                 }
-                ButtonVertical(onClick = viewModel::emojifyText, modifier = Modifier.weight(1f)) {
+                ButtonVertical(onClick = {
+                    viewModel.emojifyText()
+                    keyboardController?.hide()
+                }, modifier = Modifier.weight(1f)) {
                     Icon(
                         imageVector = Icons.Rounded.EmojiEmotions,
                         contentDescription = stringResource(id = R.string.emojify),
@@ -181,7 +184,7 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
     }
 }
 
-private fun showInAppReview(context: Context) {
+private fun showInAppReview(context: Context, viewModel: SharedViewModel) {
     val reviewManager = ReviewManagerFactory.create(context)
     val requestReviewFlow = reviewManager.requestReviewFlow()
     requestReviewFlow.addOnCompleteListener { request ->
@@ -189,7 +192,7 @@ private fun showInAppReview(context: Context) {
             val reviewInfo = request.result
             val flow = reviewManager.launchReviewFlow(context.findActivity(), reviewInfo)
             flow.addOnCompleteListener {
-                // Обрабатываем завершение сценария оценки
+                viewModel.showInAppReview.value = false
             }
         } else {
             Log.e("CreateFragment", request.exception?.message ?: "Error in showInAppReview()")

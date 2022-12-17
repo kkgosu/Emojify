@@ -16,9 +16,21 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     val isLightTheme = mutableStateOf(appSettings.isLightTheme())
+    val isFirstLaunch = mutableStateOf(appSettings.isFirstLaunch())
+    val isMetricsEnabled = mutableStateOf(appSettings.isMetricsEnabled())
 
     fun switchThemes() {
         appSettings.switchThemes()
         isLightTheme.value = appSettings.isLightTheme()
+    }
+
+    fun setMetricsEnabled(isEnabled: Boolean) {
+        isMetricsEnabled.value = false
+        appSettings.setMetricsEnabled(isEnabled)
+    }
+
+    fun setNotFirstLaunch() {
+        isFirstLaunch.value = false
+        appSettings.setNotFirstLaunch()
     }
 }

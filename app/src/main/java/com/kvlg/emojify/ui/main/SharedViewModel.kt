@@ -16,13 +16,13 @@ import com.kvlg.emojify.model.EmojiItem2
 import com.kvlg.emojify.model.EmojifyedText
 import com.kvlg.emojify.model.Emojis
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
-import javax.inject.Inject
-import kotlin.collections.set
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
+import java.util.*
+import javax.inject.Inject
+import kotlin.collections.set
 
 /**
  * @author Konstantin Koval
@@ -39,6 +39,14 @@ class SharedViewModel @Inject constructor(
     private val emojiMap = mutableMapOf<String, EmojiItem>()
     private var emojiList2 = emptyList<EmojiItem2>()
 
+
+    val history: LiveData<Result<List<EmojifyedText>>> = interactor.getAllTexts()
+    var loading = mutableStateOf(false)
+        private set
+    var emojiText = mutableStateOf("")
+        private set
+    var showInAppReview = mutableStateOf(false)
+
     init {
         val gson = Gson()
         val textJson = resourceManager.getAsset("emojis.json").bufferedReader().use { it.readText() }
@@ -53,14 +61,6 @@ class SharedViewModel @Inject constructor(
 
         checkForInAppReview()
     }
-
-    val history: LiveData<Result<List<EmojifyedText>>> = interactor.getAllTexts()
-    var loading = mutableStateOf(false)
-        private set
-    var emojiText = mutableStateOf("")
-        private set
-    var showInAppReview = mutableStateOf(false)
-        private set
 
     fun emojifyText() {
         analyticsInteractor.onEmojifyClick()

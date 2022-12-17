@@ -1,8 +1,10 @@
 package com.kvlg.emojify.utils
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.ContextWrapper
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
@@ -27,3 +29,12 @@ fun copyText(context: Context, text: String) {
 }
 
 const val CLIP_LABEL = "CLIP_LABEL"
+
+fun Context.findActivity(): Activity {
+    var context = this
+    while (context is ContextWrapper) {
+        if (context is Activity) return context
+        context = context.baseContext
+    }
+    throw IllegalStateException("no activity")
+}

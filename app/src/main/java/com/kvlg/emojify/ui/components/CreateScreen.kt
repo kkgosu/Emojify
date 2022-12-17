@@ -1,6 +1,8 @@
 package com.kvlg.emojify.ui.components
 
+import android.content.Context
 import android.content.Intent
+import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -45,26 +47,31 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.animateLottieCompositionAsState
 import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.kvlg.emojify.R
 import com.kvlg.emojify.ui.main.SharedViewModel
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
 import com.kvlg.emojify.utils.copyText
+import com.kvlg.emojify.utils.findActivity
 
 /**
  * @author Konstantin Koval
  * @since 29.11.2021
  */
-
 @ExperimentalComposeUiApi
 @ExperimentalMaterialApi
 @Composable
 fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
     val context = LocalContext.current
-    val emojiText by remember { viewModel.emojiText }
-    val loading by remember { viewModel.loading }
+    val emojiText by remember(viewModel::emojiText)
+    val loading by remember(viewModel::loading)
     val keyboardController = LocalSoftwareKeyboardController.current
     val lottieComposition by rememberLottieComposition(spec = LottieCompositionSpec.RawRes(R.raw.preloader_51))
     val progress by animateLottieCompositionAsState(composition = lottieComposition, iterations = LottieConstants.IterateForever)
+    val showInAppReview by remember(viewModel::showInAppReview)
+    if (showInAppReview) {
+        showInAppReview(context)
+    }
     Box {
         Column {
             TextField(
@@ -170,6 +177,22 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 composition = lottieComposition,
                 progress = progress,
             )
+        }
+    }
+}
+
+private fun showInAppReview(context: Context) {
+    val reviewManager = ReviewManagerFactory.create(context)
+    val requestReviewFlow = reviewManager.requestReviewFlow()
+    requestReviewFlow.addOnCompleteListener { request ->
+        if (request.isSuccessful) {
+            val reviewInfo = request.result
+            val flow = reviewManager.launchReviewFlow(context.findActivity(), reviewInfo)
+            flow.addOnCompleteListener {
+                // Обрабатываем завершение сценария оценки
+            }
+        } else {
+            Log.e("CreateFragment", request.exception?.message ?: "Error in showInAppReview()")
         }
     }
 }

@@ -31,11 +31,6 @@ android {
             versionNameSuffix = "+${getLastCommitHash()}"
             signingConfig = signingConfigs.getByName(AppConfig.BuildTypes.DEBUG.name)
         }
-
-        configureEach {
-            val appMetricaApiKey = gradleLocalProperties(rootDir).getProperty("app_metrica_api_key")
-            buildConfigField("String", "APP_METRICA_API_KEY", appMetricaApiKey)
-        }
     }
 
     buildFeatures {
@@ -57,7 +52,6 @@ android {
 dependencies {
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
 
-    implementation(Libs.APP_METRICA)
     implementation(Libs.COROUTINES)
     implementation(Libs.GSON)
     implementation(Libs.HILT_ANDROID)

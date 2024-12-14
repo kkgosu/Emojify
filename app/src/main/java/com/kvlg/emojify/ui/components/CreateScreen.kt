@@ -102,7 +102,6 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                     .padding(12.dp), verticalAlignment = Alignment.Bottom
             ) {
                 TextButtonVertical(onClick = {
-                    viewModel.onShareClick()
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.type = "text/plain"
                     intent.putExtra(Intent.EXTRA_TEXT, emojiText)
@@ -122,7 +121,6 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                 }
                 TextButtonVertical(onClick = {
                     viewModel.clearText()
-                    viewModel.onClearClick()
                 }, modifier = Modifier.weight(1f)) {
                     Icon(
                         imageVector = Icons.Rounded.Clear,
@@ -137,7 +135,6 @@ fun CreateFragment(viewModel: SharedViewModel = hiltViewModel()) {
                     )
                 }
                 TextButtonVertical(onClick = {
-                    viewModel.onCopyClick()
                     copyText(context, emojiText)
                 }, modifier = Modifier.weight(1f)) {
                     Icon(

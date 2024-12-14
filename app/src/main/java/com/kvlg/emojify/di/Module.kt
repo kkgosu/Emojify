@@ -3,10 +3,7 @@ package com.kvlg.emojify.di
 import android.content.Context
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import com.kvlg.emojify.data.AnalyticsRepository
-import com.kvlg.emojify.data.AnalyticsRepositoryImpl
 import com.kvlg.emojify.data.db.history.HistoryTextDatabase
-import com.kvlg.emojify.domain.AnalyticsInteractor
 import com.kvlg.emojify.domain.AppSettings
 import com.kvlg.emojify.domain.EmojiInteractor
 import com.kvlg.emojify.domain.ResourceManager
@@ -47,14 +44,4 @@ object Module {
     @Provides
     fun provideAppSettings(@ApplicationContext context: Context) = AppSettings(context)
 
-    @Provides
-    @Singleton
-    fun provideAnalyticsRepository(): AnalyticsRepository {
-        return AnalyticsRepositoryImpl()
-    }
-
-    @Provides
-    fun provideAnalyticsInteractor(repo: AnalyticsRepository): AnalyticsInteractor {
-        return AnalyticsInteractor(repo)
-    }
 }

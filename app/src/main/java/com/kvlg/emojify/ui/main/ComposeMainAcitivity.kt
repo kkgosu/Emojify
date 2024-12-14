@@ -17,7 +17,6 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.NightsStay
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -32,7 +31,6 @@ import com.kvlg.emojify.ui.components.TabItem
 import com.kvlg.emojify.ui.components.Tabs
 import com.kvlg.emojify.ui.components.TabsContent
 import com.kvlg.emojify.ui.theme.EmojifyerTheme
-import com.yandex.metrica.YandexMetrica
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -49,26 +47,10 @@ class ComposeMainAcitivity : ComponentActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
             val mainViewModel: MainViewModel = hiltViewModel()
-            val isMetricsEnabled = remember { mainViewModel.isMetricsEnabled }
             EmojifyerTheme(darkTheme = !mainViewModel.isLightTheme.value) {
                 EmojifyerMainScreen(mainViewModel)
             }
-            activateYandexMetrics(isMetricsEnabled.value)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        YandexMetrica.resumeSession(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        YandexMetrica.pauseSession(this)
-    }
-
-    private fun activateYandexMetrics(isEnabled: Boolean) {
-        YandexMetrica.setStatisticsSending(this, isEnabled)
     }
 }
 
@@ -77,7 +59,7 @@ class ComposeMainAcitivity : ComponentActivity() {
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-private fun EmojifyerMainScreen(mainViewModel: MainViewModel, sharedViewModel: SharedViewModel = hiltViewModel()) {
+private fun EmojifyerMainScreen(mainViewModel: MainViewModel) {
     val tabs = listOf(
         TabItem.Create,
         TabItem.History
@@ -92,7 +74,6 @@ private fun EmojifyerMainScreen(mainViewModel: MainViewModel, sharedViewModel: S
             actions = {
                 IconButton(onClick = {
                     mainViewModel.switchThemes()
-                    sharedViewModel.onThemeChange()
                 }) {
                     Icon(
                         imageVector = Icons.Rounded.NightsStay,

@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
-import com.kvlg.emojify.domain.AnalyticsInteractor
 import com.kvlg.emojify.domain.EmojiInteractor
 import com.kvlg.emojify.domain.ResourceManager
 import com.kvlg.emojify.domain.Result
@@ -32,8 +31,7 @@ import kotlin.collections.set
 class SharedViewModel @Inject constructor(
     resourceManager: ResourceManager,
     private val interactor: EmojiInteractor,
-    private val preferences: SharedPreferences,
-    private val analyticsInteractor: AnalyticsInteractor
+    private val preferences: SharedPreferences
 ) : ViewModel() {
 
     private val emojiMap = mutableMapOf<String, EmojiItem>()
@@ -63,7 +61,6 @@ class SharedViewModel @Inject constructor(
     }
 
     fun emojifyText() {
-        analyticsInteractor.onEmojifyClick()
         viewModelScope.launch {
             loading.value = true
             val result = modifyText(emojiText.value)
@@ -81,30 +78,6 @@ class SharedViewModel @Inject constructor(
 
     fun clearText() {
         emojiText.value = ""
-    }
-
-    fun onCreateTabOpen() {
-        analyticsInteractor.onCreateTabOpen()
-    }
-
-    fun onHistoryTabOpen() {
-        analyticsInteractor.onHistoryTabOpen()
-    }
-
-    fun onThemeChange() {
-        analyticsInteractor.onThemeChange()
-    }
-
-    fun onShareClick() {
-        analyticsInteractor.onShareClick()
-    }
-
-    fun onCopyClick() {
-        analyticsInteractor.onCopyClick()
-    }
-
-    fun onClearClick() {
-        analyticsInteractor.onClearClick()
     }
 
     private suspend fun saveText(text: String) {
